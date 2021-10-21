@@ -8,6 +8,8 @@ export default defineConfig({
     ? '/client/'
     : '/',
   build: {
-    outDir: '../public/client'
-  }
+    outDir: '../public/client',
+    emptyOutDir: true,
+  },
+  root: './client'
 })
