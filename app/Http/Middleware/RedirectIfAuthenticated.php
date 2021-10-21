@@ -6,6 +6,7 @@ use App\Providers\RouteServiceProvider;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Fortify\Fortify;
 
 class RedirectIfAuthenticated
 {
@@ -23,7 +24,10 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                if ($request->expectsJson()) {
+                    return response()->json(['error' => 'Already authenticated'], 200);
+                }
+                return redirect(config('fortify.home'));
             }
         }
 
