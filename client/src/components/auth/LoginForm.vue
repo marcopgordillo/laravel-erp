@@ -1,18 +1,11 @@
 <template>
-    <form @submit.prevent="registerUser">
-        <BaseInput
-            type="text"
-            label="Name"
-            name="name"
-            v-model="name"
-            placeholder="Your name"
-            class="mb-2"
-        />
+    <form @submit.prevent="login">
         <BaseInput
             type="email"
             label="Email"
             name="email"
             v-model="email"
+            autocomplete="email"
             placeholder="Your email"
             class="mb-2"
         />
@@ -22,17 +15,17 @@
             name="password"
             v-model="password"
             placeholder="Your password"
-            class="mb-2"
-        />
-        <BaseInput
-            type="password"
-            label="Confirm Password"
-            name="password-confirm"
-            v-model="passwordConfirm"
-            placeholder="Confirm your password"
             class="mb-4"
         />
-        <BaseBtn type="submit" text="Register" />
+        <div class="flex justify-between">
+            <BaseBtn type="submit" text="Login" />
+            <router-link
+                :to="{ name: 'ForgotPassword' }"
+                class="text-sm base-link"
+            >
+                Forgot your password?
+            </router-link>
+        </div>
         <FlashMessage :error="error" />
     </form>
 </template>
@@ -40,6 +33,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 import BaseBtn from '@/components/base/BaseBtn.vue'
 import BaseInput from '@/components/base/BaseInput.vue'
@@ -48,23 +42,31 @@ import { getError } from '@/utils/helpers'
 import AuthService from '@/services/AuthService'
 
 const router = useRouter()
+const store = useStore()
 
-let name = ref(null)
 let email = ref(null)
 let password = ref(null)
-let passwordConfirm = ref(null)
 let error = ref(null)
 
-function registerUser() {
+async function login() {
     error.value = null
     const payload = {
-        name: name.value,
         email: email.value,
         password: password.value,
-        password_confirmation: passwordConfirm.value
     }
-    AuthService.registerUser(payload)
-        .then(() => router.push({ name: 'Dashboard' }))
-        .catch(err => error.value = getError(err))
+    try {
+        await AuthService.login(payload)
+        const authUser = await store.dispatch('auth/getAuthUser')
+        if (authUser) {
+            store.dispatch('auth/setGuest', { value: 'isNotGuest' })
+            router.push({ name: 'Dashboard' })
+        } else {
+            const _error = Error('Unable to fetch user after login, check your API settings.')
+            _error.name = 'Fetch User'
+            throw _error
+        }
+    } catch (err) {
+        error.value = getError(err)
+    }
 }
 </script>

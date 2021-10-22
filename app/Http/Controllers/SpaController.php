@@ -8,7 +8,7 @@ class SpaController extends Controller
 {
     public function __invoke()
     {
-        $path = public_path('client/index.html');
+        $path = public_path('index.html');
 
         abort_unless(file_exists($path), 400, 'Make sure to run npm run build!');
 

@@ -1,6 +1,8 @@
-import router from '@/router'
+import { useRouter } from 'vue-router'
 import { getError } from '@/utils/helpers'
 import AuthService from '@/services/AuthService'
+
+const router = useRouter()
 
 const state = () => ({
   user: null,
@@ -51,9 +53,9 @@ const actions ={
     commit('SET_LOADING', true)
     try {
       const response = await AuthService.getAuthUser()
-      commit('SET_USER', response.data.data)
+      commit('SET_USER', response.data)
       commit('SET_LOADING', false)
-      return response.data.data
+      return response.data
     } catch (error) {
       commit('SET_LOADING', false)
       commit('SET_USER', null)
@@ -66,7 +68,7 @@ const actions ={
 }
 
 export default {
-  namespace: true,
+  namespaced: true,
   state,
   mutations,
   getters,

@@ -5,12 +5,9 @@ import path from 'path'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [vue()],
-  base: process.env.NODE_ENV === 'production'
-    ? '/client/'
-    : '/',
   build: {
-    outDir: '../public/client',
-    emptyOutDir: true,
+    outDir: '../public',
+    emptyOutDir: false,
   },
   root: './client',
   resolve: {
