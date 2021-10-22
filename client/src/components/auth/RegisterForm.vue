@@ -58,10 +58,10 @@ let error = ref(null)
 function registerUser() {
     error = null
     const payload = {
-        name,
-        email,
-        password,
-        password_confirmation: passwordConfirm
+        name: name.value,
+        email: email.value,
+        password: password.value,
+        password_confirmation: passwordConfirm.value
     }
     AuthService.registerUser(payload)
         .then(() => router.push({ name: 'Dashboard' }))

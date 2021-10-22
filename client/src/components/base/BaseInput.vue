@@ -9,7 +9,7 @@
         </label>
         <input
             :id="name"
-            v-model="name"
+            v-model="value"
             :type="type"
             :required="required"
             :placeholder="placeholder"
@@ -21,7 +21,7 @@
 
 <script>
 export default {
-    inheritAttrs: false,
+    inheritAttrs: true,
 }
 </script>
 
@@ -32,6 +32,10 @@ const props = defineProps({
     modelValue: {
       type: String,
       default: '',
+    },
+    name: {
+        type: String,
+        required: true,
     },
     label: {
       type: String,
@@ -61,8 +65,8 @@ const props = defineProps({
 
 const emit = defineEmits(['update:modelValue'])
 
-const name = computed({
-    get () {
+const value = computed({
+    get() {
         return props.modelValue
     },
     set(val) {

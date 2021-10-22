@@ -10,7 +10,7 @@
 
 <script>
 export default {
-    inheritAttrs: false,
+    inheritAttrs: true,
 }
 </script>
 
