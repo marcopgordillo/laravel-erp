@@ -1,8 +1,10 @@
 <template>
+    <div>
         <form @submit.prevent="sendVerification">
             <BaseBtn type="submit" text="Verify Email" />
         </form>
         <FlashMessage :message="message" :error="error" />
+    </div>
 </template>
 
 <script setup>
@@ -20,7 +22,7 @@ const message = ref(null)
 
 const authUser = computed(() => store.getters['auth/authUser'])
 
-function sendVerification(payload) {
+function sendVerification() {
     error.value = null
     message.value = null
 

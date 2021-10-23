@@ -14,9 +14,9 @@ class AvatarController extends Controller
     {
         try {
             $user = Auth::user();
-            $filePath = Storage::disk('spaces')
+            $filePath = Storage::disk('public')
                 ->put("avatars/user-{$user->id}", $request->file, 'public');
-            $user->avatar = config('app.spaces') . $filePath;
+            $user->avatar = config('app.spaces') . "/storage/{$filePath}";
             $user->save();
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);

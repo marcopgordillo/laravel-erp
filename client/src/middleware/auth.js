@@ -1,4 +1,4 @@
-export default function auth({ to, next, store }) {
+export default function ({ to, next, store }) {
   const loginQuery = { name: 'Login', query: { redirect: to.fullPath } }
 
   if (!store.getters['auth/authUser']) {

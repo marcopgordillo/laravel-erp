@@ -36,7 +36,12 @@ const email = ref(null)
 const error = ref(null)
 const message = ref(null)
 
-const authUser = computed(() => store.getters['auth/AuthUser'])
+const authUser = computed(() => store.getters['auth/authUser'])
+
+onMounted(() => {
+    name.value = authUser.value.data.name
+    email.value = authUser.value.data.email
+})
 
 function updateUser() {
     error.value = null
@@ -52,9 +57,4 @@ function updateUser() {
         .then(() => (message.value = 'User updated.'))
         .catch(err => (error.value = getError(err)))
 }
-
-onMounted(() => {
-    name.value = authUser.value.name
-    email.value = authUser.value.email
-})
 </script>

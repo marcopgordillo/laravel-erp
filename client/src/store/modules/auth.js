@@ -1,8 +1,6 @@
-import { useRouter } from 'vue-router'
 import { getError } from '@/utils/helpers'
+import router from '@/router'
 import AuthService from '@/services/AuthService'
-
-const router = useRouter()
 
 const state = () => ({
   user: null,
@@ -43,8 +41,8 @@ const actions ={
       .then(() => {
         commit('SET_USER', null)
         dispatch('setGuest', { value: 'isGuest' })
-        if (router.currentRoute.name !== 'login') {
-          router.push({ name: 'login' })
+        if (router.currentRoute.value.name !== 'Login') {
+          router.push({ name: 'Login' })
         }
       })
       .catch(error => commit('SET_ERROR', getError(error)))

@@ -1,4 +1,3 @@
-import middlewarePipeline from './middlewarePipeline'
 import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
 
