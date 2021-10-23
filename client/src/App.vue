@@ -1,8 +1,21 @@
 <template>
-    <Navigation />
-    <router-view />
+    <Header />
+    <main class="container mx-auto">
+        <router-view />
+    </main>
 </template>
 
 <script setup>
-import Navigation from '@/components/navigation/Index.vue'
+import Header from '@/components/layout/Header.vue'
 </script>
+
+<style>
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+</style>

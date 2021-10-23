@@ -1,0 +1,5 @@
+export { default as BaseBtn } from './BaseBtn.vue'
+export { default as BaseInput } from './BaseInput.vue'
+export { default as BasePagination } from './BasePagination.vue'
+export { default as FlashMessage } from './FlashMessage.vue'
+export { default as FileUpload } from './FileUpload.vue'

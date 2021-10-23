@@ -35,11 +35,9 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useStore } from 'vuex'
 
-import BaseBtn from '@/components/base/BaseBtn.vue'
-import BaseInput from '@/components/base/BaseInput.vue'
-import FlashMessage from '@/components/base/FlashMessage.vue'
 import { getError } from '@/utils/helpers'
 import AuthService from '@/services/AuthService'
+import { BaseBtn, BaseInput, FlashMessage } from '@/components/base'
 
 const router = useRouter()
 const store = useStore()
