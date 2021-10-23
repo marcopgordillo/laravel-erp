@@ -20,6 +20,7 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $fillable = [
         'name',
         'email',
+        'avatar',
         'password',
     ];
 
@@ -39,6 +40,17 @@ class User extends Authenticatable implements MustVerifyEmail
      * @var array
      */
     protected $casts = [
+        'is_admin'          => 'boolean',
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin(): bool
+    {
+        return $this->is_admin;
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class);
+    }
 }

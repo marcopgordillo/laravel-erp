@@ -1,28 +1,34 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import { useStore } from 'vuex'
+import middlewarePipeline from './middlewarePipeline'
 import routes from './routes'
-import store from '@/store'
+
+const store = useStore()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+  routes,
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })
 
-router.beforeEach((to, _, next) => {
-  const authUser = store.getters["auth/authUser"]
-  const reqAuth = to.matched.some(record => record.meta.requiresAuth)
-  const loginQuery = { path: "/login", query: { redirect: to.fullPath } }
+router.beforeEach((to, from, next) => {
+  const middleware = to.meta.middleware
+  const context = { to, from, next, store }
 
-  if (reqAuth && !authUser) {
-    store.dispatch("auth/getAuthUser").then(() => {
-      if (!store.getters["auth/authUser"]) {
-        next(loginQuery)
-      } else {
-        next()
-      }
-    });
-  } else {
-    next() // make sure to always call next()!
+  if (!middleware) {
+    return next()
   }
+
+  middleware[0]({
+    ...context,
+    next: middlewarePipeline(context, middleware, 1),
+  })
 })
 
 export default router

@@ -37,7 +37,7 @@ export default {
     await authClient.post('/forgot-password', payload)
   },
   getAuthUser() {
-    return authClient.get('/api/user')
+    return authClient.get('/api/users/auth')
   },
   async resetPassword(payload) {
     await authClient.get('/sanctum/csrf-cookie')

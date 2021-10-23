@@ -1,46 +1,65 @@
+import middlewarePipeline from './middlewarePipeline'
+import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
-const NotFound = () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue')
-const About = () => import(/* webpackChunkName: "about" */ '@/views/About.vue')
-const Dashboard = () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue')
-const Register = () => import(/* webpackChunkName: "register" */ '@/views/Register.vue')
-const Login = () => import(/* webpackChunkName: "login" */ '@/views/Login.vue')
-const ForgotPassword = () => import(/* webpackChunkName: "forgot-password" */ '@/views/ForgotPassword.vue')
 
 export default [
   {
     path: '/',
     name: 'Home',
+    meta: { middleware: [guest] },
     component: Home
   },
   {
     path: '/dashboard',
     name: 'Dashboard',
-    meta: { requiresAuth: true },
-    component: Dashboard,
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
+  },
+  {
+    path: '/user',
+    name: 'User',
+    meta: { middleware: [auth] },
+    component: () => import(/* webpackChunkName: "user" */ '@/views/User.vue'),
+  },
+  {
+    path: '/users',
+    name: 'Users',
+    meta: { middleware: [auth, admin] },
+    component: () => import(/* webpackChunkName: "user" */ '@/views/Users.vue'),
   },
   {
     path: '/about',
     name: 'About',
-    component: About,
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
   },
   {
     path: '/register',
     name: 'Register',
-    component: Register,
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "register" */ '@/views/Register.vue'),
   },
   {
     path: '/login',
     name: 'Login',
-    component: Login,
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
+  },
+  {
+    path: '/reset-password',
+    name: 'ResetPassword',
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "reset-password" */ '@/views/ResetPassword.vue'),
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
-    component: ForgotPassword,
+    meta: { middleware: [guest] },
+    component: () => import(/* webpackChunkName: "forgot-password" */ '@/views/ForgotPassword.vue'),
   },
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
-    component: NotFound,
+    component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
   }
 ]
