@@ -19,7 +19,7 @@
               class="w-10 h-10 rounded-full"
               alt=""
             />
-            <AvatarIcon class="w-10 h-10 text-gray-400 rounded-full" v-else />
+            <AvatarIcon v-else class="w-10 h-10 text-gray-400 rounded-full" />
             <span class="text-gray-600">{{ user.name }}</span>
           </div>
           <a
@@ -55,8 +55,7 @@
 import { computed } from 'vue'
 import { useStore } from "vuex"
 import { onBeforeRouteLeave } from 'vue-router'
-
-import { MailIcon, AvatarIcon } from "@/components/icons";
+import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
 import { BasePagination, FlashMessage } from "@/components/base";
 
 const store = useStore()

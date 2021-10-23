@@ -21,8 +21,8 @@ const mutations = {
 }
 
 const getters = {
-  authUser: state =>state.user,
-  isAdmin: state => state.user ? state.user.isAdmin : false,
+  authUser: state => state.user,
+  isAdmin: state => state.user ? state.user.data.isAdmin : false,
   error: state => state.error,
   loading: state => state.loading,
   loggedIn: state => !!state.user,

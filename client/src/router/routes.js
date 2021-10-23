@@ -24,7 +24,7 @@ export default [
     path: '/users',
     name: 'Users',
     meta: { middleware: [auth, admin] },
-    component: () => import(/* webpackChunkName: "user" */ '@/views/Users.vue'),
+    component: () => import(/* webpackChunkName: "users" */ '@/views/Users.vue'),
   },
   {
     path: '/about',
