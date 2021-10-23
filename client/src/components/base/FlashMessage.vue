@@ -24,7 +24,7 @@
                     v-for="key in errorKeys"
                     :key="key"
                 >
-                    <span class="font-bold capitalize">{{ titleCase }}</span>
+                    <span class="font-bold capitalize">{{ titleCase(key) }}</span>
                     <ul class="ml-2">
                         <li v-for="(item, index) in getErrors(key)" :key="`${index}-error`">
                             {{ item }}
@@ -50,14 +50,14 @@ const props = defineProps({
     },
 })
 
-const errorkeys = computed(() => {
+const errorKeys = computed(() => {
     if (!props.error || getType(props.error) === 'string') {
         return null
     }
     return Object.keys(props.error)
 })
 
-const titleCase = computed(value => value.replace('_', ' '))
+const titleCase = value => value.replace('_', ' ')
 
 function getErrors(key) {
     return props.error[key]

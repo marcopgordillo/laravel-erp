@@ -6,11 +6,14 @@ export const getError = error => {
   }
 
   if (!error.response) {
-    console.error(`API ${error.config.url} not found`)
+    if (error.config) {
+      console.error(`API ${error.config.url} not found`)
+    }
     return errorMessage
   }
 
   if (import.meta.env.NODE_ENV === 'development') {
+    console.error(error.message)
     console.error(error.response.data)
     console.error(error.response.status)
     console.error(error.response.headers)

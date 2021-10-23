@@ -30,7 +30,8 @@
 <script setup>
 import { computed } from 'vue';
 import { useStore } from 'vuex'
-import { LogoutIcon, LoginIcon, HomeIcon } from '../icons'
+import Logout from '../auth/Logout.vue';
+import { HomeIcon, LoginIcon } from '@heroicons/vue/solid'
 
 const store = useStore()
 

@@ -1,4 +1,4 @@
-export default function admin({ next, store }) {
+export default function ({ next, store }) {
   if (store.getters['auth/isAdmin']) next()
   else next({ name: 'NotFound' })
 }

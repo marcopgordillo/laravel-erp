@@ -12,7 +12,8 @@
 <script setup>
 import { useStore } from 'vuex';
 import { LogoutIcon } from '@heroicons/vue/solid'
-import store from '../../store';
+
+const store = useStore()
 
 function logout() {
     store.dispatch('auth/logout')

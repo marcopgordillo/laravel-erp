@@ -22,7 +22,7 @@
         name="password-confirm"
         v-model="passwordConfirm"
         placeholder="Confirm your new Password"
-        class="mb-2"
+        class="mb-4"
     />
     <BaseBtn type="submit" text="Update" />
     <FlashMessage :message="message" :error="error" />
@@ -33,7 +33,7 @@
 import { ref } from 'vue'
 import { getError } from "@/utils/helpers"
 import AuthService from "@/services/AuthService";
-import { BaseBtn, FlashMessage } from "@/components/base"
+import { BaseBtn, BaseInput, FlashMessage } from "@/components/base"
 
 const currentPassword = ref(null)
 const password = ref(null)

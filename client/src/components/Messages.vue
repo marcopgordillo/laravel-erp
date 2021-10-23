@@ -57,13 +57,12 @@ import { AvatarIcon } from './icons'
 
 const store = useStore()
 
-const loading = store.getters['message/loading']
-const error = store.getters['message/error']
-const messages = store.getters['message/messages']
-const meta = store.getters['message/meta']
-const links = store.getters['message/links']
+const loading = computed(() => store.getters['message/loading'])
+const error = computed(() => store.getters['message/error'])
+const messages = computed(() => store.getters['message/messages'])
+const meta = computed(() => store.getters['message/meta'])
+const links = computed(() => store.getters['message/links'])
 
 const currentPage = 1
 store.dispatch('message/getMessages', currentPage)
-
 </script>

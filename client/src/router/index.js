@@ -1,9 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { useStore } from 'vuex'
+import store from '@/store'
 import middlewarePipeline from './middlewarePipeline'
 import routes from './routes'
-
-const store = useStore()
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

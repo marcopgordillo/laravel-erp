@@ -1,7 +1,5 @@
 import axios from 'axios'
-import { useStore } from 'vuex'
-
-const store = useStore()
+import store from '@/store'
 
 const apiClient = axios.create({
   baseURL: `${import.meta.env.VITE_API_URL}/api`,
