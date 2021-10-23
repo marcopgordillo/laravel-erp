@@ -66,6 +66,8 @@ const users = computed(() => store.getters['user/users'])
 const meta = computed(() => store.getters['user/meta'])
 const links = computed(() => store.getters['user/links'])
 
+store.dispatch('user/getUsers', 1)
+
 onBeforeRouteLeave((to, from, next) => {
     const currentPage = parseInt(to.query.page) || 1;
     store.dispatch('user/getUsers', currentPage).then(() => {
