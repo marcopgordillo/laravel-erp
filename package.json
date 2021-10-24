@@ -1,25 +1,30 @@
 {
-  "name": "client",
-  "version": "0.0.0",
+  "private": true,
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "serve": "vite preview"
-  },
-  "dependencies": {
-    "@headlessui/vue": "^1.4.1",
-    "@heroicons/vue": "^1.0.4",
-    "axios": "^0.23.0",
-    "vue": "^3.2.16",
-    "vue-router": "^4.0.12",
-    "vuex": "^4.0.2"
+    "dev": "npm run development",
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "prod": "npm run production",
+    "production": "mix --production"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^1.9.3",
+    "@headlessui/vue": "^1.4.1",
+    "@heroicons/vue": "^1.0.4",
+    "@vue/compiler-sfc": "^3.2.20",
     "@vue/test-utils": "^2.0.0-rc.16",
     "autoprefixer": "^10.3.7",
-    "postcss": "^8.3.10",
+    "axios": "^0.21",
+    "browser-sync": "^2.27.5",
+    "browser-sync-webpack-plugin": "^2.3.0",
+    "laravel-mix": "^6.0.0-beta.17",
+    "lodash": "^4.17.19",
+    "postcss": "^8.3.11",
     "tailwindcss": "^2.2.17",
-    "vite": "^2.6.4"
+    "vue": "^3.2.20",
+    "vue-loader": "^16.8.1",
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
   }
 }
