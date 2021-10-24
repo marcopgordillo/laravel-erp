@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('{path}', SpaController::class)->where('path', '(.*)');
+Route::get('{path}', fn() => view('spa'))->where('path', '(.*)');
