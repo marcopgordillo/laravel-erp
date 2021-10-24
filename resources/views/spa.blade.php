@@ -17,10 +17,14 @@
 
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <script>
+        window.csrf_token = "{{ csrf_token() }}"
+    </script>
 </head>
 <body>
-    <div id="app">
-        <noscript>Your browser does not support JavaScript!</noscript>
-    </div>
+    <noscript>
+        <strong>Your browser does not support JavaScript!</strong>
+    </noscript>
+    <div id="app"></div>
 </body>
 </html>

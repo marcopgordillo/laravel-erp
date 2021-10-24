@@ -4,6 +4,10 @@ import store from '@/store'
 const apiClient = axios.create({
   baseURL: `${process.env.MIX_API_URL}/api`,
   withCredentials: true,
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': window.csrf_token
+  },
 })
 
 apiClient.interceptors.response.use(

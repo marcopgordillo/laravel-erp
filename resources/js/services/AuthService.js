@@ -5,6 +5,10 @@ import store from '@/store'
 export const authClient = axios.create({
   baseURL: process.env.MIX_API_URL,
   withCredentials: true, // handle CSRF token
+  headers: {
+    'X-Requested-With': 'XMLHttpRequest',
+    'X-CSRF-TOKEN': window.csrf_token
+  },
 })
 
 /*
@@ -25,28 +29,28 @@ authClient.interceptors.response.use(
 
 export default {
   async login(payload) {
-    await authClient.get('/sanctum/csrf-cookie')
+    // await authClient.get('/sanctum/csrf-cookie')
     return authClient.post('/login', payload)
   },
   logout() {
     return authClient.post('/logout')
   },
   async forgotPassword(payload) {
-    await authClient.get('/sanctum/csrf-cookie')
+    // await authClient.get('/sanctum/csrf-cookie')
     await authClient.post('/forgot-password', payload)
   },
   getAuthUser() {
     return authClient.get('/api/users/auth')
   },
   async resetPassword(payload) {
-    await authClient.get('/sanctum/csrf-cookie')
+    // await authClient.get('/sanctum/csrf-cookie')
     return authClient.post('/reset-password', payload)
   },
   updatePassword(payload) {
     return authClient.put('/user/password', payload)
   },
   async registerUser(payload) {
-    await authClient.get('/sanctum/csrf-cookie')
+    // await authClient.get('/sanctum/csrf-cookie')
     return authClient.post('/register', payload)
   },
   sendVerification(payload) {
