@@ -14309,6 +14309,30 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/middleware/can.js":
+/*!****************************************!*\
+  !*** ./resources/js/middleware/can.js ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* export default binding */ __WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ function __WEBPACK_DEFAULT_EXPORT__(_ref) {
+  var to = _ref.to,
+      next = _ref.next,
+      store = _ref.store,
+      permission = _ref.permission;
+  var hasPermission = store.getters['auth/authUser'].data.permissions.includes(permission);
+  if (hasPermission) next();else next({
+    name: 'Home'
+  });
+}
+
+/***/ }),
+
 /***/ "./resources/js/middleware/guest.js":
 /*!******************************************!*\
   !*** ./resources/js/middleware/guest.js ***!
@@ -14356,11 +14380,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "auth": () => (/* reexport safe */ _auth__WEBPACK_IMPORTED_MODULE_0__["default"]),
 /* harmony export */   "admin": () => (/* reexport safe */ _admin__WEBPACK_IMPORTED_MODULE_1__["default"]),
-/* harmony export */   "guest": () => (/* reexport safe */ _guest__WEBPACK_IMPORTED_MODULE_2__["default"])
+/* harmony export */   "guest": () => (/* reexport safe */ _guest__WEBPACK_IMPORTED_MODULE_2__["default"]),
+/* harmony export */   "can": () => (/* reexport safe */ _can__WEBPACK_IMPORTED_MODULE_3__["default"])
 /* harmony export */ });
 /* harmony import */ var _auth__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./auth */ "./resources/js/middleware/auth.js");
 /* harmony import */ var _admin__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./admin */ "./resources/js/middleware/admin.js");
 /* harmony import */ var _guest__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./guest */ "./resources/js/middleware/guest.js");
+/* harmony import */ var _can__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./can */ "./resources/js/middleware/can.js");
+
 
 
 
@@ -14409,11 +14436,13 @@ var router = (0,vue_router__WEBPACK_IMPORTED_MODULE_3__.createRouter)({
 });
 router.beforeEach(function (to, from, next) {
   var middleware = to.meta.middleware;
+  var permission = to.meta.permission;
   var context = {
     to: to,
     from: from,
     next: next,
-    store: _store__WEBPACK_IMPORTED_MODULE_0__["default"]
+    store: _store__WEBPACK_IMPORTED_MODULE_0__["default"],
+    permission: permission
   };
 
   if (!middleware) {
@@ -14505,7 +14534,8 @@ __webpack_require__.r(__webpack_exports__);
   path: '/users',
   name: 'Users',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth, _middleware__WEBPACK_IMPORTED_MODULE_0__.admin]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth, _middleware__WEBPACK_IMPORTED_MODULE_0__.can],
+    permission: 'users-list'
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | users */ "users").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Users.vue */ "./resources/js/views/Users.vue"));
@@ -14583,11 +14613,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var apiClient = axios__WEBPACK_IMPORTED_MODULE_0___default().create({
   baseURL: "".concat("http://localhost", "/api"),
-  withCredentials: true,
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': window.csrf_token
-  }
+  withCredentials: true
 });
 apiClient.interceptors.response.use(function (response) {
   return response;
@@ -14630,12 +14656,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 var authClient = axios__WEBPACK_IMPORTED_MODULE_1___default().create({
   baseURL: "http://localhost",
-  withCredentials: true,
-  // handle CSRF token
-  headers: {
-    'X-Requested-With': 'XMLHttpRequest',
-    'X-CSRF-TOKEN': window.csrf_token
-  }
+  withCredentials: true // handle CSRF token
+
 });
 /*
  * Add a response interceptor
@@ -14657,9 +14679,13 @@ authClient.interceptors.response.use(function (response) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
+              _context.next = 2;
+              return authClient.get('/sanctum/csrf-cookie');
+
+            case 2:
               return _context.abrupt("return", authClient.post('/login', payload));
 
-            case 1:
+            case 3:
             case "end":
               return _context.stop();
           }
@@ -14677,9 +14703,13 @@ authClient.interceptors.response.use(function (response) {
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return authClient.post('/forgot-password', payload);
+              return authClient.get('/sanctum/csrf-cookie');
 
             case 2:
+              _context2.next = 4;
+              return authClient.post('/forgot-password', payload);
+
+            case 4:
             case "end":
               return _context2.stop();
           }
@@ -14696,9 +14726,13 @@ authClient.interceptors.response.use(function (response) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
+              _context3.next = 2;
+              return authClient.get('/sanctum/csrf-cookie');
+
+            case 2:
               return _context3.abrupt("return", authClient.post('/reset-password', payload));
 
-            case 1:
+            case 3:
             case "end":
               return _context3.stop();
           }
@@ -14715,9 +14749,13 @@ authClient.interceptors.response.use(function (response) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
+              _context4.next = 2;
+              return authClient.get('/sanctum/csrf-cookie');
+
+            case 2:
               return _context4.abrupt("return", authClient.post('/register', payload));
 
-            case 1:
+            case 3:
             case "end":
               return _context4.stop();
           }
@@ -14873,9 +14911,7 @@ var getters = {
   isAdmin: function isAdmin(state) {
     var _state$user, _state$user$data$role;
 
-    return (_state$user = state.user) === null || _state$user === void 0 ? void 0 : (_state$user$data$role = _state$user.data.roles) === null || _state$user$data$role === void 0 ? void 0 : _state$user$data$role.some(function (rol) {
-      return rol.name === 'super-admin';
-    });
+    return (_state$user = state.user) === null || _state$user === void 0 ? void 0 : (_state$user$data$role = _state$user.data.roles) === null || _state$user$data$role === void 0 ? void 0 : _state$user$data$role.includes('super-admin');
   },
   error: function error(state) {
     return state.error;
@@ -14888,9 +14924,7 @@ var getters = {
   },
   guest: function guest() {
     var storageItem = window.localStorage.getItem('guest');
-    if (!storageItem) return false;
-    if (storageItem === 'isGuest') return true;
-    if (storageItem === 'isNotGuest') return false;
+    return storageItem && storageItem === 'isGuest';
   }
 };
 var actions = {
