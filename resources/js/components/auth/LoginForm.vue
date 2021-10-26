@@ -54,7 +54,8 @@ async function login() {
     }
     try {
         await AuthService.login(payload)
-        const authUser = await store.dispatch('auth/getAuthUser')
+        await store.dispatch('auth/getAuthUser')
+        const authUser = store.getters['auth/authUser']
         if (authUser) {
             store.dispatch('auth/setGuest', { value: 'isNotGuest' })
             router.push({ name: 'Dashboard' })

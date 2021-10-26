@@ -16,23 +16,14 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $admin = User::factory()->create([
+        User::factory()->create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
-        ]);
+        ])->assignRole('super-admin');
 
-        $role = Role::create(['name' => 'super-admin']);
-        $admin->assignRole('super-admin');
-
-        $permissions = [
-            'users-list',
-            'users-create',
-            'users-update',
-            'users-delete',
-        ];
-
-        foreach($permissions as $permission) {
-            Permission::create(['name' => $permission]);
-        }
+        User::factory()->create([
+            'name' => 'Pepe',
+            'email' => 'pepe@pepe.com',
+        ])->assignRole('editor');
     }
 }

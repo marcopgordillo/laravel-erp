@@ -22,16 +22,13 @@ const mutations = {
 
 const getters = {
   authUser: state => state.user,
-  isAdmin: state => state.user?.data.roles?.some(rol => rol.name === 'super-admin'),
+  isAdmin: state => state.user?.data.roles?.includes('super-admin'),
   error: state => state.error,
   loading: state => state.loading,
   loggedIn: state => !!state.user,
   guest: () => {
     const storageItem = window.localStorage.getItem('guest')
-    if (!storageItem) return false;
-    if (storageItem === 'isGuest') return true;
-    if (storageItem === 'isNotGuest') return false;
-
+    return storageItem && storageItem === 'isGuest'
   },
 }
 

@@ -4,6 +4,7 @@ namespace App\Policies;
 
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Auth;
 
 class UserPolicy
 {
@@ -17,7 +18,7 @@ class UserPolicy
      */
     public function viewAny(User $user)
     {
-        $user->hasPermissionTo('users-list');
+        return Auth::user()->hasPermissionTo('users-list');
     }
 
     /**
@@ -29,7 +30,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return $user->hasPermissionTo('users-list');
+        return Auth::user()->hasPermissionTo('users-list') || Auth::user()->id === $user->id;
     }
 
     /**
@@ -40,7 +41,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        return $user->hasPermissionTo('users-create');
+        return Auth::user()->hasPermissionTo('users-create') || Auth::user()->id === $user->id;
     }
 
     /**
@@ -52,7 +53,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        return $user->hasPermissionTo('users-update');
+        return Auth::user()->hasPermissionTo('users-update') || Auth::user()->id === $user->id;
     }
 
     /**
@@ -64,7 +65,7 @@ class UserPolicy
      */
     public function delete(User $user, User $model)
     {
-        return $user->hasPermissionTo('users-delete');
+        return Auth::user()->hasPermissionTo('users-delete') || Auth::user()->id === $user->id;
     }
 
     /**
@@ -76,7 +77,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        return $user->hasPermissionTo('users-restore');
+        return Auth::user()->hasPermissionTo('users-restore');
     }
 
     /**
@@ -88,6 +89,6 @@ class UserPolicy
      */
     public function forceDelete(User $user, User $model)
     {
-        return $user->hasPermissionTo('users-forcedelete');
+        return Auth::user()->hasPermissionTo('users-force-delete');
     }
 }
