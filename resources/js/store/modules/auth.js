@@ -22,7 +22,7 @@ const mutations = {
 
 const getters = {
   authUser: state => state.user,
-  isAdmin: state => state.user ? state.user.data.isAdmin : false,
+  isAdmin: state => state.user?.data.roles?.some(rol => rol.name === 'super-admin'),
   error: state => state.error,
   loading: state => state.loading,
   loggedIn: state => !!state.user,
@@ -53,7 +53,6 @@ const actions ={
       const response = await AuthService.getAuthUser()
       commit('SET_USER', response.data)
       commit('SET_LOADING', false)
-      return response.data
     } catch (error) {
       commit('SET_LOADING', false)
       commit('SET_USER', null)

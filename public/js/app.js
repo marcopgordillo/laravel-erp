@@ -14871,7 +14871,11 @@ var getters = {
     return state.user;
   },
   isAdmin: function isAdmin(state) {
-    return state.user ? state.user.data.isAdmin : false;
+    var _state$user, _state$user$data$role;
+
+    return (_state$user = state.user) === null || _state$user === void 0 ? void 0 : (_state$user$data$role = _state$user.data.roles) === null || _state$user$data$role === void 0 ? void 0 : _state$user$data$role.some(function (rol) {
+      return rol.name === 'super-admin';
+    });
   },
   error: function error(state) {
     return state.error;
@@ -14925,21 +14929,22 @@ var actions = {
               response = _context.sent;
               commit('SET_USER', response.data);
               commit('SET_LOADING', false);
-              return _context.abrupt("return", response.data);
+              _context.next = 15;
+              break;
 
-            case 11:
-              _context.prev = 11;
+            case 10:
+              _context.prev = 10;
               _context.t0 = _context["catch"](2);
               commit('SET_LOADING', false);
               commit('SET_USER', null);
               commit('SET_ERROR', (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_1__.getError)(_context.t0));
 
-            case 16:
+            case 15:
             case "end":
               return _context.stop();
           }
         }
-      }, _callee, null, [[2, 11]]);
+      }, _callee, null, [[2, 10]]);
     }))();
   },
   setGuest: function setGuest(context, _ref3) {

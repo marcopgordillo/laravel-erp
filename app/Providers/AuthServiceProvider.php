@@ -29,5 +29,10 @@ class AuthServiceProvider extends ServiceProvider
         ResetPassword::createUrlUsing(function ($user, string $token) {
             return config('app.spa_url') . '/reset-password?token=' . $token;
         });
+
+        // Role super-admin can do all except if it is denied.
+        Gate::after(function ($user, $ability) {
+            return $user->hasRole('super-admin');
+        });
     }
 }
