@@ -1,7 +1,9 @@
+import { computed } from 'vue'
 import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
 import NotFound from '@/views/NotFound.vue'
 import Unauthorized from '@/views/Unauthorized.vue'
+import store from '@/store'
 
 export default [
   {
@@ -37,6 +39,11 @@ export default [
       {
         path: 'edit',
         name: 'UserEdit',
+        meta: {
+          can: (to, from, can) => {
+            return can('users-update', { id: +to.params.id })
+          }
+        },
         component: () => import(/* webpackChunkName: "users-edit" */ '@/components/users/UserEditForm.vue'),
       },
     ],

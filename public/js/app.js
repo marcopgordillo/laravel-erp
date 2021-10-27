@@ -14607,10 +14607,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/middleware */ "./resources/js/middleware/index.js");
-/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/views/Home.vue */ "./resources/js/views/Home.vue");
-/* harmony import */ var _views_NotFound_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/NotFound.vue */ "./resources/js/views/NotFound.vue");
-/* harmony import */ var _views_Unauthorized_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/views/Unauthorized.vue */ "./resources/js/views/Unauthorized.vue");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.runtime.esm-bundler.js");
+/* harmony import */ var _middleware__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/middleware */ "./resources/js/middleware/index.js");
+/* harmony import */ var _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/views/Home.vue */ "./resources/js/views/Home.vue");
+/* harmony import */ var _views_NotFound_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @/views/NotFound.vue */ "./resources/js/views/NotFound.vue");
+/* harmony import */ var _views_Unauthorized_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @/views/Unauthorized.vue */ "./resources/js/views/Unauthorized.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @/store */ "./resources/js/store/index.js");
+
+
 
 
 
@@ -14619,14 +14623,14 @@ __webpack_require__.r(__webpack_exports__);
   path: '/',
   name: 'Home',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
-  component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  component: _views_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/dashboard',
   name: 'Dashboard',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.auth]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | dashboard */ "dashboard").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Dashboard.vue */ "./resources/js/views/Dashboard.vue"));
@@ -14635,7 +14639,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/user',
   name: 'User',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.auth]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | user */ "user").then(__webpack_require__.bind(__webpack_require__, /*! @/views/users/User.vue */ "./resources/js/views/users/User.vue"));
@@ -14644,7 +14648,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/users',
   name: 'Users',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth],
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.auth],
     can: 'users-list'
   },
   component: function component() {
@@ -14654,7 +14658,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/users/:id',
   name: 'UsersId',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth],
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.auth],
     can: 'users-list'
   },
   component: function component() {
@@ -14663,6 +14667,13 @@ __webpack_require__.r(__webpack_exports__);
   children: [{
     path: 'edit',
     name: 'UserEdit',
+    meta: {
+      can: function can(to, from, _can) {
+        return _can('users-update', {
+          id: +to.params.id
+        });
+      }
+    },
     component: function component() {
       return __webpack_require__.e(/*! import() | users-edit */ "users-edit").then(__webpack_require__.bind(__webpack_require__, /*! @/components/users/UserEditForm.vue */ "./resources/js/components/users/UserEditForm.vue"));
     }
@@ -14671,7 +14682,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/about',
   name: 'About',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | about */ "about").then(__webpack_require__.bind(__webpack_require__, /*! @/views/About.vue */ "./resources/js/views/About.vue"));
@@ -14680,7 +14691,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/register',
   name: 'Register',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | register */ "register").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Register.vue */ "./resources/js/views/Register.vue"));
@@ -14689,7 +14700,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/login',
   name: 'Login',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | login */ "login").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Login.vue */ "./resources/js/views/Login.vue"));
@@ -14698,7 +14709,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/reset-password',
   name: 'ResetPassword',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | reset-password */ "reset-password").then(__webpack_require__.bind(__webpack_require__, /*! @/views/ResetPassword.vue */ "./resources/js/views/ResetPassword.vue"));
@@ -14707,7 +14718,7 @@ __webpack_require__.r(__webpack_exports__);
   path: '/forgot-password',
   name: 'ForgotPassword',
   meta: {
-    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.guest]
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_1__.guest]
   },
   component: function component() {
     return __webpack_require__.e(/*! import() | forgot-password */ "forgot-password").then(__webpack_require__.bind(__webpack_require__, /*! @/views/ForgotPassword.vue */ "./resources/js/views/ForgotPassword.vue"));
@@ -14715,11 +14726,11 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   path: "/unauthorized",
   name: "Unauthorized",
-  component: _views_Unauthorized_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _views_Unauthorized_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
 }, {
   path: "/:catchAll(.*)",
   name: "NotFound",
-  component: _views_NotFound_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _views_NotFound_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
 }]);
 
 /***/ }),
