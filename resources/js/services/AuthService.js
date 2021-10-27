@@ -1,5 +1,4 @@
 import axios from 'axios'
-import { useStore } from 'vuex'
 import store from '@/store'
 
 export const authClient = axios.create({

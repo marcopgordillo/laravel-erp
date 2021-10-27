@@ -2,20 +2,20 @@
     <div v-if="authUser">
         <transition name="fade">
             <img
-                v-if="authUser.data.avatar"
-                :src="authUser.data.avatar"
+                v-if="authUser.avatar"
+                :src="authUser.avatar"
                 class="w-16 h-16 rounded-full lg:w-20 lg:h-20"
                 alt=""
             />
         </transition>
         <ul>
-            <li class="mb-1 font-bold">{{ authUser.data.name }}</li>
-            <li>Email: {{ authUser.data.email }}</li>
-            <li v-if="authUser.data.emailVerified" class="text-gray-500">
+            <li class="mb-1 font-bold">{{ authUser.name }}</li>
+            <li>Email: {{ authUser.email }}</li>
+            <li v-if="authUser.emailVerified" class="text-gray-500">
                 Emailed Verified
             </li>
         </ul>
-        <VerifyEmail v-if="!authUser.data.emailVerified" class="mt-4" />
+        <VerifyEmail v-if="!authUser.emailVerified" class="mt-4" />
     </div>
 </template>
 

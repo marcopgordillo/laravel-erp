@@ -39,8 +39,8 @@ const message = ref(null)
 const authUser = computed(() => store.getters['auth/authUser'])
 
 onMounted(() => {
-    name.value = authUser.value.data.name
-    email.value = authUser.value.data.email
+    name.value = authUser.value.name
+    email.value = authUser.value.email
 })
 
 function updateUser() {

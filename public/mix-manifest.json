@@ -3,11 +3,14 @@
     "/js/dashboard.js": "/js/dashboard.js",
     "/js/user.js": "/js/user.js",
     "/js/users.js": "/js/users.js",
+    "/js/users-id.js": "/js/users-id.js",
     "/js/about.js": "/js/about.js",
     "/js/register.js": "/js/register.js",
     "/js/login.js": "/js/login.js",
     "/js/reset-password.js": "/js/reset-password.js",
     "/js/forgot-password.js": "/js/forgot-password.js",
     "/js/not-found.js": "/js/not-found.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/users-.js": "/js/users-.js",
+    "/js/users-edit.js": "/js/users-edit.js"
 }

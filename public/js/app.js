@@ -14325,7 +14325,7 @@ __webpack_require__.r(__webpack_exports__);
       next = _ref.next,
       store = _ref.store,
       permission = _ref.permission;
-  var hasPermission = store.getters['auth/authUser'].data.permissions.includes(permission);
+  var hasPermission = store.getters['auth/authUser'].permissions.includes(permission);
   if (hasPermission) next();else next({
     name: 'Home'
   });
@@ -14528,7 +14528,7 @@ __webpack_require__.r(__webpack_exports__);
     middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth]
   },
   component: function component() {
-    return __webpack_require__.e(/*! import() | user */ "user").then(__webpack_require__.bind(__webpack_require__, /*! @/views/User.vue */ "./resources/js/views/User.vue"));
+    return __webpack_require__.e(/*! import() | user */ "user").then(__webpack_require__.bind(__webpack_require__, /*! @/views/users/User.vue */ "./resources/js/views/users/User.vue"));
   }
 }, {
   path: '/users',
@@ -14538,8 +14538,25 @@ __webpack_require__.r(__webpack_exports__);
     permission: 'users-list'
   },
   component: function component() {
-    return __webpack_require__.e(/*! import() | users */ "users").then(__webpack_require__.bind(__webpack_require__, /*! @/views/Users.vue */ "./resources/js/views/Users.vue"));
+    return __webpack_require__.e(/*! import() | users */ "users").then(__webpack_require__.bind(__webpack_require__, /*! @/views/users/Users.vue */ "./resources/js/views/users/Users.vue"));
   }
+}, {
+  path: '/users/:id',
+  name: 'UsersId',
+  meta: {
+    middleware: [_middleware__WEBPACK_IMPORTED_MODULE_0__.auth, _middleware__WEBPACK_IMPORTED_MODULE_0__.can],
+    permission: 'users-list'
+  },
+  component: function component() {
+    return __webpack_require__.e(/*! import() | users-id */ "users-id").then(__webpack_require__.bind(__webpack_require__, /*! @/views/users/UsersId.vue */ "./resources/js/views/users/UsersId.vue"));
+  },
+  children: [{
+    path: 'edit',
+    name: 'UserEdit',
+    component: function component() {
+      return __webpack_require__.e(/*! import() | users-edit */ "users-edit").then(__webpack_require__.bind(__webpack_require__, /*! @/views/users/UsersEdit.vue */ "./resources/js/views/users/UsersEdit.vue"));
+    }
+  }]
 }, {
   path: '/about',
   name: 'About',
@@ -14650,7 +14667,6 @@ __webpack_require__.r(__webpack_exports__);
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
 
 
 
@@ -14820,6 +14836,12 @@ __webpack_require__.r(__webpack_exports__);
   getUsers: function getUsers(page) {
     return _API__WEBPACK_IMPORTED_MODULE_0__["default"].get("/users/?page=".concat(page));
   },
+  updateUser: function updateUser(userId, payload) {
+    return _API__WEBPACK_IMPORTED_MODULE_0__["default"].put("/users/".concat(userId), payload);
+  },
+  deleteUser: function deleteUser(userId) {
+    return _API__WEBPACK_IMPORTED_MODULE_0__["default"]["delete"]("/users/".concat(userId));
+  },
   paginateUsers: function paginateUsers(link) {
     return _API__WEBPACK_IMPORTED_MODULE_0__["default"].get(link);
   }
@@ -14909,9 +14931,9 @@ var getters = {
     return state.user;
   },
   isAdmin: function isAdmin(state) {
-    var _state$user, _state$user$data$role;
+    var _state$user, _state$user$roles;
 
-    return (_state$user = state.user) === null || _state$user === void 0 ? void 0 : (_state$user$data$role = _state$user.data.roles) === null || _state$user$data$role === void 0 ? void 0 : _state$user$data$role.includes('super-admin');
+    return (_state$user = state.user) === null || _state$user === void 0 ? void 0 : (_state$user$roles = _state$user.roles) === null || _state$user$roles === void 0 ? void 0 : _state$user$roles.includes('super-admin');
   },
   error: function error(state) {
     return state.error;
@@ -14961,7 +14983,7 @@ var actions = {
 
             case 5:
               response = _context.sent;
-              commit('SET_USER', response.data);
+              commit('SET_USER', response.data.data);
               commit('SET_LOADING', false);
               _context.next = 15;
               break;
@@ -15111,18 +15133,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _utils_helpers__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @/utils/helpers */ "./resources/js/utils/helpers.js");
 /* harmony import */ var _services_UserService__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @/services/UserService */ "./resources/js/services/UserService.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @/router */ "./resources/js/router/index.js");
+
 
 
 var state = {
   users: [],
+  user: null,
   meta: null,
   links: null,
   loading: false,
-  error: null
+  error: null,
+  message: null
 };
 var mutations = {
   SET_USERS: function SET_USERS(state, users) {
     state.users = users;
+  },
+  SET_USER: function SET_USER(state, user) {
+    state.user = user;
   },
   SET_META: function SET_META(state, meta) {
     state.meta = meta;
@@ -15135,11 +15164,17 @@ var mutations = {
   },
   SET_ERROR: function SET_ERROR(state, error) {
     state.error = error;
+  },
+  SET_MESSAGE: function SET_MESSAGE(state, message) {
+    state.message = message;
   }
 };
 var getters = {
   users: function users(state) {
     return state.users;
+  },
+  user: function user(state) {
+    return state.user;
   },
   meta: function meta(state) {
     return state.meta;
@@ -15152,6 +15187,9 @@ var getters = {
   },
   error: function error(state) {
     return state.error;
+  },
+  message: function message(state) {
+    return state.message;
   }
 };
 var actions = {
@@ -15165,8 +15203,44 @@ var actions = {
       commit("SET_ERROR", (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_0__.getError)(error));
     });
   },
-  paginateUsers: function paginateUsers(_ref2, link) {
+  getUser: function getUser(_ref2, payload) {
     var commit = _ref2.commit;
+    commit("SET_LOADING", true);
+    _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].getUser(payload).then(function (response) {
+      commit('SET_USER', response.data.data);
+      commit("SET_LOADING", false);
+    })["catch"](function (error) {
+      commit("SET_LOADING", false);
+      commit("SET_ERROR", (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_0__.getError)(error));
+    });
+  },
+  updateUser: function updateUser(_ref3, payload) {
+    var commit = _ref3.commit;
+    _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].updateUser(payload.id, payload).then(function () {
+      return commit('SET_MESSAGE', 'User Updated');
+    })["catch"](function (error) {
+      commit("SET_ERROR", (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_0__.getError)(error));
+    });
+  },
+  deleteUser: function deleteUser(_ref4) {
+    var state = _ref4.state,
+        commit = _ref4.commit,
+        rootState = _ref4.rootState;
+
+    if (state.user.id !== rootState.auth.user.id) {
+      _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].deleteUser(state.user.id).then(function () {
+        return _router__WEBPACK_IMPORTED_MODULE_2__["default"].push({
+          name: 'Users'
+        });
+      })["catch"](function (error) {
+        commit("SET_ERROR", (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_0__.getError)(error));
+      });
+    } else {
+      commit('SET_ERROR', (0,_utils_helpers__WEBPACK_IMPORTED_MODULE_0__.getError)(Error("Can't delete your own user!")));
+    }
+  },
+  paginateUsers: function paginateUsers(_ref5, link) {
+    var commit = _ref5.commit;
     commit("SET_LOADING", true);
     _services_UserService__WEBPACK_IMPORTED_MODULE_1__["default"].paginateUsers(link).then(function (response) {
       setPaginatedUsers(commit, response);
@@ -15213,11 +15287,13 @@ var getError = function getError(error) {
   }
 
   if (!error.response) {
+    var _error$message;
+
     if (error.config) {
       console.error("API ".concat(error.config.url, " not found"));
     }
 
-    return errorMessage;
+    return (_error$message = error.message) !== null && _error$message !== void 0 ? _error$message : errorMessage;
   }
 
   if (true) {
@@ -29814,7 +29890,7 @@ module.exports = JSON.parse('{"name":"axios","version":"0.21.4","description":"P
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"dashboard":1,"users":1,"about":1,"register":1,"login":1,"reset-password":1,"forgot-password":1,"not-found":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"dashboard":1,"users":1,"users-id":1,"users-edit":1,"about":1,"register":1,"login":1,"reset-password":1,"forgot-password":1,"not-found":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			if (chunkId === "user") return "js/user.js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
