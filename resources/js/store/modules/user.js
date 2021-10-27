@@ -58,24 +58,22 @@ const actions = {
         commit("SET_ERROR", getError(error));
       })
   },
-  getUser({ commit }, payload) {
+  getUser({ commit, dispatch }, payload) {
     commit("SET_LOADING", true)
     UserService.getUser(payload)
       .then(response => {
         commit('SET_USER', response.data.data)
-        commit("SET_LOADING", false);
+        commit("SET_LOADING", false)
       })
       .catch(error => {
-        commit("SET_LOADING", false);
-        commit("SET_ERROR", getError(error));
+        commit("SET_LOADING", false)
+        dispatch('putError', getError(error))
       })
   },
-  updateUser({ commit }, payload) {
+  updateUser({ commit, dispatch }, payload) {
     UserService.updateUser(payload.id, payload)
-      .then(() => commit('SET_MESSAGE', 'User Updated'))
-      .catch(error => {
-        commit("SET_ERROR", getError(error));
-      })
+      .then(() => dispatch('putMessage', 'User Updated'))
+      .catch(error => dispatch('putError', getError(error)))
   },
   deleteUser({ state, commit, rootState }) {
     if (state.user.id !== rootState.auth.user.id) {
@@ -98,6 +96,14 @@ const actions = {
         commit("SET_LOADING", false)
         commit("SET_ERROR", getError(error))
       });
+  },
+  putMessage({ commit }, payload) {
+        commit('SET_MESSAGE', payload)
+        setTimeout(() => commit('SET_MESSAGE', null), 5000)
+  },
+  putError({ commit }, payload) {
+        commit('SET_ERROR', payload)
+        setTimeout(() => commit('SET_ERROR', null), 5000)
   },
 }
 

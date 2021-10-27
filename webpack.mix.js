@@ -18,6 +18,7 @@ mix.js('resources/js/app.js', 'public/js')
       '@': path.join(__dirname, 'resources/js'),
       '~': path.join(__dirname, 'resources/css'),
       'vue$': path.join(__dirname, 'node_modules/vue/dist/vue.runtime.esm-bundler.js'),
+      'vue-simple-acl$': path.join(__dirname, 'node_modules/vue-simple-acl/dist/vue-simple-acl.esm.js'),
     })
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss")
