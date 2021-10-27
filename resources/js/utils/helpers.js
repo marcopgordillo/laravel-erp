@@ -23,5 +23,5 @@ export const getError = error => {
     return error.response.data.errors
   }
 
-  return errorMessage
+  return error.message ?? errorMessage
 }

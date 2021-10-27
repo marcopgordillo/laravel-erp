@@ -1,5 +1,7 @@
-import { auth, admin, guest, can } from '@/middleware'
+import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
+import NotFound from '@/views/NotFound.vue'
+import Unauthorized from '@/views/Unauthorized.vue'
 
 export default [
   {
@@ -23,19 +25,19 @@ export default [
   {
     path: '/users',
     name: 'Users',
-    meta: { middleware: [auth, can], permission: 'users-list' },
+    meta: { middleware: [auth], can: 'users-list' },
     component: () => import(/* webpackChunkName: "users" */ '@/views/users/Users.vue'),
   },
   {
     path: '/users/:id',
     name: 'UsersId',
-    meta: { middleware: [auth, can], permission: 'users-list' },
+    meta: { middleware: [auth], can: 'users-list' },
     component: () => import(/* webpackChunkName: "users-id" */ '@/views/users/UsersId.vue'),
     children: [
       {
         path: 'edit',
         name: 'UserEdit',
-        component: () => import(/* webpackChunkName: "users-edit" */ '@/views/users/UsersEdit.vue'),
+        component: () => import(/* webpackChunkName: "users-edit" */ '@/components/users/UserEditForm.vue'),
       },
     ],
   },
@@ -70,8 +72,13 @@ export default [
     component: () => import(/* webpackChunkName: "forgot-password" */ '@/views/ForgotPassword.vue'),
   },
   {
+    path: "/unauthorized",
+    name: "Unauthorized",
+    component: Unauthorized,
+  },
+  {
     path: "/:catchAll(.*)",
     name: "NotFound",
-    component: () => import(/* webpackChunkName: "not-found" */ '@/views/NotFound.vue'),
+    component: NotFound,
   }
 ]
