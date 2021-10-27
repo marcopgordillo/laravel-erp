@@ -6,7 +6,7 @@
           <HomeIcon class="w-6 h-6 text-white" />
           <span class="sr-only">Dashboard</span>
         </router-link>
-        <router-link :to="{ name: 'Users' }" v-if="isAdmin">Users</router-link>
+        <router-link :to="{ name: 'Users' }" v-can:users-list>Users</router-link>
       </div>
       <router-link :to="{ name: 'Home'}" v-else>
         <HomeIcon class="w-6 h-6 text-white" />

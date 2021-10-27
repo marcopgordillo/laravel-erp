@@ -64,6 +64,8 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
+        Log::debug("User Update Controller");
+
         if (isset($request->password)) {
             $data['password'] = Hash::make($request->password);
         }

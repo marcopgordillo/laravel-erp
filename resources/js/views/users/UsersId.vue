@@ -30,12 +30,14 @@
           </a>
           <div class="inline-flex items-center space-x-2">
             <router-link
+                v-can:users-update="user"
                 :to="{ name:'UserEdit' }"
                 class="px-4 py-2 bg-yellow-400 hover:bg-yellow-500"
             >
                 Edit
             </router-link>
             <button
+                v-can:users-delete="user"
                 @click="deleteUser"
                 class="px-4 py-2 bg-red-400 hover:bg-red-500"
             >

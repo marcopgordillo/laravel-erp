@@ -17,8 +17,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const middleware = to.meta.middleware
-  const permission = to.meta.permission
-  const context = { to, from, next, store, permission }
+  const context = { to, from, next, store }
 
   if (!middleware) {
     return next()
