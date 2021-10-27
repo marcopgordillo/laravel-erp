@@ -19,7 +19,8 @@ class UserResource extends JsonResource
             'name'          => $this->name,
             'email'         => $this->email,
             'avatar'        => $this->avatar,
-            'isAdmin'       => $this->isAdmin(),
+            'roles'         => RoleResource::collection($this->roles)->pluck('name')->toArray(),
+            'permissions'   => PermissionResource::collection($this->getAllPermissions())->pluck('name')->toArray(),
             'emailVerified' => $this->email_verified_at,
         ];
     }

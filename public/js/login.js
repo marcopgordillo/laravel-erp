@@ -67,7 +67,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return store.dispatch('auth/getAuthUser');
 
               case 7:
-                authUser = _context.sent;
+                authUser = store.getters['auth/authUser'];
 
                 if (!authUser) {
                   _context.next = 13;

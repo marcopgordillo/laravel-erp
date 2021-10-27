@@ -22,16 +22,13 @@ const mutations = {
 
 const getters = {
   authUser: state => state.user,
-  isAdmin: state => state.user ? state.user.data.isAdmin : false,
+  isAdmin: state => state.user?.roles?.includes('super-admin'),
   error: state => state.error,
   loading: state => state.loading,
   loggedIn: state => !!state.user,
   guest: () => {
     const storageItem = window.localStorage.getItem('guest')
-    if (!storageItem) return false;
-    if (storageItem === 'isGuest') return true;
-    if (storageItem === 'isNotGuest') return false;
-
+    return storageItem && storageItem === 'isGuest'
   },
 }
 
@@ -51,9 +48,8 @@ const actions ={
     commit('SET_LOADING', true)
     try {
       const response = await AuthService.getAuthUser()
-      commit('SET_USER', response.data)
+      commit('SET_USER', response.data.data)
       commit('SET_LOADING', false)
-      return response.data
     } catch (error) {
       commit('SET_LOADING', false)
       commit('SET_USER', null)

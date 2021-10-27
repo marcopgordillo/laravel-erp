@@ -1,4 +1,4 @@
-import { auth, admin, guest } from '@/middleware'
+import { auth, admin, guest, can } from '@/middleware'
 import Home from '@/views/Home.vue'
 
 export default [
@@ -18,13 +18,26 @@ export default [
     path: '/user',
     name: 'User',
     meta: { middleware: [auth] },
-    component: () => import(/* webpackChunkName: "user" */ '@/views/User.vue'),
+    component: () => import(/* webpackChunkName: "user" */ '@/views/users/User.vue'),
   },
   {
     path: '/users',
     name: 'Users',
-    meta: { middleware: [auth, admin] },
-    component: () => import(/* webpackChunkName: "users" */ '@/views/Users.vue'),
+    meta: { middleware: [auth, can], permission: 'users-list' },
+    component: () => import(/* webpackChunkName: "users" */ '@/views/users/Users.vue'),
+  },
+  {
+    path: '/users/:id',
+    name: 'UsersId',
+    meta: { middleware: [auth, can], permission: 'users-list' },
+    component: () => import(/* webpackChunkName: "users-id" */ '@/views/users/UsersId.vue'),
+    children: [
+      {
+        path: 'edit',
+        name: 'UserEdit',
+        component: () => import(/* webpackChunkName: "users-edit" */ '@/views/users/UsersEdit.vue'),
+      },
+    ],
   },
   {
     path: '/about',

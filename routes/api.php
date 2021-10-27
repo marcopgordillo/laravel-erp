@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -23,11 +25,13 @@ Route::post('sanctum/token', TokenController::class)->name('sanctum.token');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('/users/auth', AuthController::class)->name('users.auth');
-    Route::get('/users/{user}', [UserController::class, 'show'])->name('users.show');
-    Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
     Route::post('/users/auth/avatar', [AvatarController::class, 'store'])->name('avatar.store');
 
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+
+    Route::apiResource('users', UserController::class);
+    Route::apiResource('roles', RoleController::class);
+    Route::apiResource('accounts', AccountController::class);
 });

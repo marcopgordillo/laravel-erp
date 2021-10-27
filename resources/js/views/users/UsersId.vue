@@ -3,18 +3,13 @@
     <transition name="fade" mode="out-in">
       <FlashMessage
         message="loading..."
-        v-if="loading && !users.length"
+        v-if="loading && !user"
         key="loading"
       />
-      <ul v-else class="mt-5">
-        <li
-          v-for="user in users"
-          :key="user.id"
-          class="flex items-center justify-between py-2 border-b"
-        >
+      <div v-else class="mt-5 flex items-center justify-between py-2 border-b">
           <div class="inline-flex items-center space-x-2">
             <img
-              v-if="user.avatar"
+              v-if="!!user.avatar"
               :src="user.avatar"
               class="w-10 h-10 rounded-full"
               alt=""
@@ -33,20 +28,29 @@
               :class="user.emailVerified ? 'text-green-400' : 'text-gray-300'"
             />
           </a>
-        </li>
-      </ul>
+          <div class="inline-flex items-center space-x-2">
+            <router-link
+                :to="{ name:'UserEdit' }"
+                class="px-4 py-2 bg-yellow-400 hover:bg-yellow-500"
+            >
+                Edit
+            </router-link>
+            <button
+                @click="deleteUser"
+                class="px-4 py-2 bg-red-400 hover:bg-red-500"
+            >
+                Delete
+            </button>
+          </div>
+      </div>
     </transition>
+    <router-view v-slot="{ Component }">
+        <transition name="fade">
+            <component :is="Component" />
+        </transition>
+    </router-view>
     <transition name="fade">
       <FlashMessage :error="error" v-if="error" key="error" />
-    </transition>
-    <transition name="fade">
-      <BasePagination
-        path="users"
-        :meta="meta"
-        :links="links"
-        action="user/paginateUsers"
-        v-if="meta && meta.last_page > 1"
-      />
     </transition>
   </div>
 </template>
@@ -54,25 +58,23 @@
 <script setup>
 import { computed } from 'vue'
 import { useStore } from "vuex"
-import { onBeforeRouteLeave } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
-import { BasePagination, FlashMessage } from "@/components/base";
+import { FlashMessage } from "@/components/base";
 
 const store = useStore()
+const route = useRoute()
+const router = useRouter()
 
+store.dispatch('user/getUser', route.params.id)
+const user = computed(() => store.getters['user/user'])
 const loading = computed(() => store.getters['user/loading'])
 const error = computed(() => store.getters['user/error'])
-const users = computed(() => store.getters['user/users'])
-const meta = computed(() => store.getters['user/meta'])
-const links = computed(() => store.getters['user/links'])
 
-store.dispatch('user/getUsers', 1)
-
-onBeforeRouteLeave((to, from, next) => {
-    const currentPage = parseInt(to.query.page) || 1;
-    store.dispatch('user/getUsers', currentPage).then(() => {
-        to.params.page = currentPage
-        next()
-    })
-})
+function deleteUser() {
+    if (confirm('Are you sure?')) {
+        store.dispatch('user/deleteUser')
+    }
+}
 </script>
+
