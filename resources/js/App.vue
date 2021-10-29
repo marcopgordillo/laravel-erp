@@ -1,12 +1,20 @@
 <template>
-    <Header />
-    <main class="container mx-auto">
+    <component :is="layout">
         <router-view />
-    </main>
+    </component>
 </template>
 
 <script setup>
-import Header from '@/components/layout/Header.vue'
+import { computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const defaultLayout = 'default'
+
+const { currentRoute } = useRouter()
+
+const layout = computed(
+    () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
+)
 </script>
 
 <style>
