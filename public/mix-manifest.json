@@ -1,14 +1,14 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/js/dashboard.js": "/js/dashboard.js",
-    "/js/user.js": "/js/user.js",
-    "/js/users.js": "/js/users.js",
-    "/js/users-id.js": "/js/users-id.js",
-    "/js/users-edit.js": "/js/users-edit.js",
-    "/js/about.js": "/js/about.js",
-    "/js/register.js": "/js/register.js",
-    "/js/login.js": "/js/login.js",
-    "/js/reset-password.js": "/js/reset-password.js",
-    "/js/forgot-password.js": "/js/forgot-password.js",
-    "/css/app.css": "/css/app.css"
+    "/js/app.js": "/js/app.js?id=49788ec192016bfd45da",
+    "/js/dashboard.js": "/js/dashboard.js?id=a6d93c723766b5922d5c",
+    "/js/user.js": "/js/user.js?id=c5449235c1122e2d2c83",
+    "/js/users.js": "/js/users.js?id=901cb31c7665c78cdc4b",
+    "/js/users-id.js": "/js/users-id.js?id=7a95d4013572b15d746d",
+    "/js/users-edit.js": "/js/users-edit.js?id=d4f6322d54cfccfa2bf2",
+    "/js/about.js": "/js/about.js?id=3eddcd88431dae4e12c4",
+    "/js/register.js": "/js/register.js?id=9e259b74791a4f141a82",
+    "/js/login.js": "/js/login.js?id=584d4bbee5461ede33df",
+    "/js/reset-password.js": "/js/reset-password.js?id=983a92fb476f0ff5d09e",
+    "/js/forgot-password.js": "/js/forgot-password.js?id=028c165692ff22a7a3c9",
+    "/css/app.css": "/css/app.css?id=e31d94054c765205bc23"
 }

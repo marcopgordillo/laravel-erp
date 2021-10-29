@@ -63,13 +63,13 @@ export default [
   {
     path: '/login',
     name: 'Login',
-    meta: { middleware: [guest] },
+    meta: { middleware: [guest], layout: 'empty' },
     component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
   },
   {
     path: '/reset-password',
     name: 'ResetPassword',
-    meta: { middleware: [guest] },
+    meta: { middleware: [guest], layout: 'empty' },
     component: () => import(/* webpackChunkName: "reset-password" */ '@/views/ResetPassword.vue'),
   },
   {
