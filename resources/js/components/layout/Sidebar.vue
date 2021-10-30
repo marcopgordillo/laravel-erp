@@ -3,7 +3,7 @@
         <!-- Backdrop -->
         <div
             :class="isOpen ? 'block' : 'hidden'"
-            @click="isOpen = false"
+            @click="sidebarClose"
             class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
         ></div>
         <!-- End Backdrop -->
@@ -31,6 +31,8 @@
 
                 <router-link
                     :to="{ name: 'Users' }"
+                    v-if="authUser"
+                    v-can:users-list
                     :class="[$route.name === 'Users' ? activeClass : inactiveClass]"
                     class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
                 >
@@ -88,8 +90,8 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useSidebar } from '@/hooks/useSidebar'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
 import {
     ChartPieIcon,
     FireIcon,
@@ -101,7 +103,13 @@ import {
     TemplateIcon,
 } from '@heroicons/vue/solid'
 
-const { isOpen } = useSidebar()
+const store = useStore()
+const authUser = computed(() => store.getters['auth/authUser'])
+const isOpen = computed(() => store.getters.sidebarOpen)
 const activeClass = ref('bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100')
 const inactiveClass = ref('hover:bg-gray-600 hover:bg-opacity-25 text-gray-500 hover:text-gray-100 border-gray-900')
+
+function sidebarClose() {
+    store.commit('SET_SIDEBAR_OPEN', false)
+}
 </script>

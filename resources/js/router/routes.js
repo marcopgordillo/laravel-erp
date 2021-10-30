@@ -9,7 +9,7 @@ export default [
   {
     path: '/',
     name: 'Home',
-    meta: { middleware: [guest] },
+    meta: { middleware: [guest], layout: 'empty' },
     component: Home
   },
   {
@@ -81,11 +81,13 @@ export default [
   {
     path: "/unauthorized",
     name: "Unauthorized",
+    meta: { layout: 'empty' },
     component: Unauthorized,
   },
   {
     path: "/:catchAll(.*)",
     name: "NotFound",
+    meta: { layout: 'empty' },
     component: NotFound,
   }
 ]

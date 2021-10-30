@@ -2,10 +2,10 @@
     <button
         type="button"
         @click="logout"
-        class="inline-flex items-center space-x-2"
+        class="inline-flex items-center space-x-2 px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white w-full"
     >
-        <span class="hidden sm:inline">Logout</span>
-        <LogoutIcon class="w-6 h-6 text-white" />
+        <span class="hidden sm:inline mr-2">Logout</span>
+        <LogoutIcon class="inline w-6 h-6 hover:text-white" />
     </button>
 </template>
 
