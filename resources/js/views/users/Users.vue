@@ -14,7 +14,7 @@
         >
           <div class="inline-flex items-center space-x-2">
             <img
-              v-if="user.avatar"
+              v-if="user?.avatar"
               :src="user.avatar"
               class="w-10 h-10 rounded-full"
               alt=""

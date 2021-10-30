@@ -13,3 +13,20 @@
         @apply text-blue-400 hover:text-blue-500 hover:underline transition;
     }
 }
+
+@layer utilities {
+    .fade-enter-active {
+        @apply transition duration-150 ease-out transform;
+    }
+    .fade-enter-from,
+    .fade-leave-to {
+        @apply scale-95 opacity-0;
+    }
+    .fade-enter-to,
+    .fade-leave-from {
+        @apply scale-100 opacity-100;
+    }
+    .fade-leave-active {
+        @apply transition duration-150 ease-in transform;
+    }
+}

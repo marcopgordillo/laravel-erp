@@ -16,14 +16,3 @@ const layout = computed(
     () => `${currentRoute.value.meta.layout || defaultLayout}-layout`
 )
 </script>
-
-<style>
-.fade-enter,
-.fade-leave-active {
-  opacity: 0;
-}
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-</style>
