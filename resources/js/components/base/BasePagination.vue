@@ -49,12 +49,12 @@
   </div>
 </template>
 <script setup>
-import { useStore } from 'vuex'
+import { useUserStore, useMessageStore } from '@/store'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({
     action: {
-      type: String,
+      type: Object,
       required: true,
     },
     path: {
@@ -71,11 +71,18 @@ const props = defineProps({
     },
 })
 
-const store = useStore()
+const storeUser = useUserStore()
+const storeMessage = useMessageStore()
 const router = useRouter()
 
+function Capitalize(value) {
+    return `${value[0].toUpperCase()}${value.substring(1)}`
+}
+
+const store = `use${Capitalize(props.action.store)}Store`()
+
 function firstPage() {
-    store.dispatch(props.action, props.links.first).then(() => {
+    store[props.action.action](props.links.first).then(() => {
         if (props.path) {
             router.push({ name: props.path, query: { page: 1 } })
         }
@@ -83,7 +90,7 @@ function firstPage() {
 }
 
 function prevPage() {
-    store.dispatch(props.action, props.links.prev).then(() => {
+    store[props.action.action](props.links.prev).then(() => {
         if (props.path) {
             router.push({ name: props.path, query: { page: props.meta.current_page - 1 } })
         }
@@ -91,7 +98,7 @@ function prevPage() {
 }
 
 function nextPage() {
-    store.dispatch(props.action, props.links.next).then(() => {
+    store[props.action.action](props.links.next).then(() => {
         if (props.path) {
             router.push({ name: props.path, query: { page: props.meta.current_page + 1 } })
         }
@@ -99,7 +106,7 @@ function nextPage() {
 }
 
 function lastPage() {
-    store.dispatch(props.action, props.links.last).then(() => {
+    store[props.action.action](props.links.last).then(() => {
         if (props.path) {
             router.push({ name: props.path, query: { page: props.meta.last_page } })
         }

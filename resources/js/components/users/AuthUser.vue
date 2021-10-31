@@ -1,30 +1,30 @@
 <template>
-    <div v-if="authUser">
+    <div v-if="user">
         <transition name="fade">
             <img
-                v-if="authUser.avatar"
-                :src="authUser.avatar"
+                v-if="user.avatar"
+                :src="user.avatar"
                 class="w-16 h-16 rounded-full lg:w-20 lg:h-20"
                 alt=""
             />
         </transition>
         <ul>
-            <li class="mb-1 font-bold">{{ authUser.name }}</li>
-            <li>Email: {{ authUser.email }}</li>
-            <li v-if="authUser.emailVerified" class="text-gray-500">
+            <li class="mb-1 font-bold">{{ user.name }}</li>
+            <li>Email: {{ user.email }}</li>
+            <li v-if="user.emailVerified" class="text-gray-500">
                 Emailed Verified
             </li>
         </ul>
-        <VerifyEmail v-if="!authUser.emailVerified" class="mt-4" />
+        <VerifyEmail v-if="!user.emailVerified" class="mt-4" />
     </div>
 </template>
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/store'
 import VerifyEmail from '../auth/VerifyEmail.vue';
 
-const store = useStore()
-
-const authUser = computed(() => store.getters['auth/authUser'])
+const storeAuth = useAuthStore()
+const { user } = storeToRefs(storeAuth)
 </script>

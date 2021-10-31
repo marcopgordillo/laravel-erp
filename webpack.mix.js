@@ -23,6 +23,7 @@ mix.js('resources/js/app.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         require("tailwindcss")
     ])
+    .sourceMaps(!mix.inProduction())
     .browserSync({
         proxy: process.env.MIX_PROXY,
         open: false,

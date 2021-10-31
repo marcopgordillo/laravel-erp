@@ -58,25 +58,23 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStore } from "vuex"
+import { storeToRefs } from 'pinia'
+import { useUserStore } from "@/store"
 import { useRoute, useRouter } from 'vue-router'
 import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
 import { FlashMessage } from "@/components/base";
 
-const store = useStore()
+const storeUser = useUserStore()
 const route = useRoute()
 const router = useRouter()
 
-store.dispatch('user/getUser', route.params.id)
-const user = computed(() => store.getters['user/user'])
-const loading = computed(() => store.getters['user/loading'])
-const error = computed(() => store.getters['user/error'])
+storeUser.getUser(route.params.id)
+
+const { user, loading, error } = storeToRefs(storeUser)
 
 function deleteUser() {
     if (confirm('Are you sure?')) {
-        store.dispatch('user/deleteUser')
+        storeUser.deleteUser()
     }
 }
 </script>
-

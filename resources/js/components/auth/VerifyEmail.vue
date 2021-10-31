@@ -9,25 +9,26 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useStore } from 'vuex'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/store'
 
 import { getError } from '@/utils/helpers'
 import AuthService from '@/services/AuthService'
 import { BaseBtn, FlashMessage } from '@/components/base'
 
-const store = useStore()
+const storeAuth = useAuthStore()
 
 const error = ref(null)
 const message = ref(null)
 
-const authUser = computed(() => store.getters['auth/authUser'])
+const { user } = storeToRefs(storeAuth)
 
 function sendVerification() {
     error.value = null
     message.value = null
 
     const payload = {
-        user: authUser.value.id
+        user: user.value.id
     }
 
     AuthService.sendVerification(payload)

@@ -1,9 +1,9 @@
 // require('./bootstrap');
 
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
-import store from './store'
 import acl from './acl'
 import DashboardLayout from '@/components/layout/DashboardLayout.vue'
 import EmptyLayout from '@/components/layout/EmptyLayout.vue'
@@ -11,7 +11,7 @@ import EmptyLayout from '@/components/layout/EmptyLayout.vue'
 import '~/app.css'
 
 const app = createApp(App)
-    .use(store)
+    .use(createPinia())
     .use(router)
     .use(acl)
 

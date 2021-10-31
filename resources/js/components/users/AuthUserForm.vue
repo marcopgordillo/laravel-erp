@@ -23,24 +23,24 @@
 </template>
 
 <script setup>
-import { computed, ref, onMounted } from 'vue'
-import { useStore } from "vuex"
-import { getError } from "@/utils/helpers"
-import AuthService from "@/services/AuthService";
-import { BaseBtn, BaseInput, FlashMessage } from "@/components/base";
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useAuthStore } from '@/store'
+import { getError } from '@/utils/helpers'
+import AuthService from '@/services/AuthService'
+import { BaseBtn, BaseInput, FlashMessage } from '@/components/base'
 
-const store = useStore()
+const storeAuth = useAuthStore()
 
+const { user } = storeToRefs(storeAuth)
 const name = ref(null)
 const email = ref(null)
 const error = ref(null)
 const message = ref(null)
 
-const authUser = computed(() => store.getters['auth/authUser'])
-
 onMounted(() => {
-    name.value = authUser.value.name
-    email.value = authUser.value.email
+    name.value = user.value.name
+    email.value = user.value.email
 })
 
 function updateUser() {
@@ -53,7 +53,7 @@ function updateUser() {
     }
 
     AuthService.updateUser(payload)
-        .then(() => store.dispatch('auth/getAuthUser'))
+        .then(() => storeAuth.getAuthUser())
         .then(() => (message.value = 'User updated.'))
         .catch(err => (error.value = getError(err)))
 }

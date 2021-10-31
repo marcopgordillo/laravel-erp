@@ -1,5 +1,5 @@
 import axios from 'axios'
-import store from '@/store'
+import { useAuthStore } from '@/store'
 
 export const authClient = axios.create({
   baseURL: process.env.MIX_API_URL,
@@ -12,11 +12,13 @@ export const authClient = axios.create({
 authClient.interceptors.response.use(
   response => response,
   error => {
+    const storeAuth = useAuthStore()
     if (error.response
       && [401, 419].includes(error.response.status)
-      && store.getters['auth/authUser']
-      && !store.getters['auth/guest']) {
-      store.dispatch('auth/logout')
+      && storeAuth.user
+      && !storeAuth.guest
+    ) {
+      storeAuth.logout()
     }
     return Promise.reject(error)
   },

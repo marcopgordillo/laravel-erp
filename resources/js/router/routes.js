@@ -3,7 +3,6 @@ import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
 import NotFound from '@/views/NotFound.vue'
 import Unauthorized from '@/views/Unauthorized.vue'
-import store from '@/store'
 
 export default [
   {
