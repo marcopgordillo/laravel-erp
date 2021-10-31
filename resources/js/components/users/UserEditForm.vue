@@ -36,26 +36,24 @@
     </form>
 </template>
 <script setup>
-import { ref, computed, onMounted } from 'vue'
-import { useStore } from 'vuex'
+import { ref, onMounted } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import { BaseInput, BaseBtn, FlashMessage } from '@/components/base'
 import { getError } from '@/utils/helpers'
-import UserService from '@/services/UserService';
 
-const store = useStore()
+const storeUser = useUserStore()
 const router = useRouter()
 
 let name = ref(null)
 let email = ref(null)
 let password = ref(null)
 let passwordConfirm = ref(null)
-let error = ref(null)
 
-const user = computed(() => store.getters['user/user'])
+const { user } = storeToRefs(storeUser)
 
 function submitEdit() {
-    error.value = null
     const payload = {
         id: user.value.id,
         name: name.value,
@@ -63,9 +61,9 @@ function submitEdit() {
         password: password.value,
         password_confirmation: passwordConfirm.value
     }
-    store.dispatch('user/updateUser', payload)
-        .then(() => router.push({ name: 'Users' }))
-        .catch(err => error.value = getError(err))
+
+    storeUser.updateUser(payload)
+    router.push({ name: 'Users' })
 }
 
 onMounted(() => {

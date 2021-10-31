@@ -16,12 +16,12 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useStore } from 'vuex'
+import { useMessageStore } from '@/store'
 
 import { getError } from '@/utils/helpers'
 import { BaseBtn, BaseInput, FlashMessage } from './base'
 
-const store = useStore()
+const storeMessage = useMessageStore()
 
 const body = ref(null)
 const error = ref(null)
@@ -33,7 +33,7 @@ async function postMessage() {
         }
         error.value = null
 
-        await store.dispatch('message/postMessage', payload)
+        await storeMessage.postMessage(payload)
         body.value = null
     } catch (err) {
         error.value = getError(err)

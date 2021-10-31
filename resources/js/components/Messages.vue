@@ -50,19 +50,16 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { storeToRefs } from 'pinia'
+import { useMessageStore } from '@/store'
 
 import { BasePagination, FlashMessage } from './base'
 import { AvatarIcon } from './icons'
 
-const store = useStore()
+const storeMessage = useMessageStore()
 
-const loading = computed(() => store.getters['message/loading'])
-const error = computed(() => store.getters['message/error'])
-const messages = computed(() => store.getters['message/messages'])
-const meta = computed(() => store.getters['message/meta'])
-const links = computed(() => store.getters['message/links'])
+const { loading, error, messages, meta, links } = storeToRefs(storeMessage)
 
 const currentPage = 1
-store.dispatch('message/getMessages', currentPage)
+storeMessage.getMessages(currentPage)
 </script>

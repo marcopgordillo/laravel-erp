@@ -16,14 +16,14 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
+import { useAuthStore } from '@/store'
 
 import { AuthUser, AuthUserForm, UpdatePassword } from '@/components/users'
 import { FileUpload } from '@/components/base'
 
-const store = useStore()
+const storeAuth = useAuthStore()
 
 function updateUser() {
-    store.dispatch('auth/getAuthUser')
+    storeAuth.getAuthUser()
 }
 </script>

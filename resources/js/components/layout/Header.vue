@@ -29,8 +29,8 @@
                     class="relative z-10 block w-8 h-8 overflow-hidden rounded-full shadow focus:outline-none"
                 >
                     <img
-                        v-if="authUser?.avatar"
-                        :src="authUser.avatar"
+                        v-if="user?.avatar"
+                        :src="user.avatar"
                         class="object-cover w-full h-full"
                         alt=""
                     />
@@ -45,11 +45,11 @@
                     <div
                         v-show="dropdownOpen"
                         class="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
-                        <div v-if="authUser">
+                        <div v-if="user">
                             <router-link
                                 :to="{ name: 'User' }"
                                 class="block px-4 py-2 text-sm text-gray-700 hover:bg-indigo-600 hover:text-white"
-                            >{{ authUser.name }}</router-link>
+                            >{{ user.name }}</router-link>
                             <Logout />
                         </div>
                         <router-link
@@ -68,20 +68,20 @@
 </template>
 
 <script setup>
-import { computed, ref } from 'vue';
-import { useStore } from 'vuex'
+import { computed, ref } from 'vue'
+import { storeToRefs } from 'pinia'
+import { useMainStore, useAuthStore } from '@/store'
 import { HomeIcon, LoginIcon, UserCircleIcon as AvatarIcon, } from '@heroicons/vue/solid'
 import { MenuAlt2Icon, SearchIcon, BellIcon } from '@heroicons/vue/outline'
 import Logout from '../auth/Logout.vue';
 
-const store = useStore()
+const storeMain = useMainStore()
+const storeAuth = useAuthStore()
 
+const { user } = storeToRefs(storeAuth)
 const dropdownOpen = ref(false)
-const isOpen = computed(() => store.getters.sidebarOpen)
-const authUser = computed(() => store.getters['auth/authUser'])
-const isAdmin = computed(() => store.getters['auth/isAdmin'])
 
 function sidebarOpen() {
-    store.commit('SET_SIDEBAR_OPEN', true)
+    storeMain.$patch(state => state.open = true)
 }
 </script>

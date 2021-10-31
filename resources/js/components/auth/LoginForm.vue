@@ -32,15 +32,16 @@
 
 <script setup>
 import { ref } from 'vue'
+import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
-import { useStore } from 'vuex'
+import { useAuthStore } from '@/store'
 
 import { getError } from '@/utils/helpers'
 import AuthService from '@/services/AuthService'
 import { BaseBtn, BaseInput, FlashMessage } from '@/components/base'
 
 const router = useRouter()
-const store = useStore()
+const storeAuth = useAuthStore()
 
 let email = ref(null)
 let password = ref(null)
@@ -54,10 +55,10 @@ async function login() {
     }
     try {
         await AuthService.login(payload)
-        await store.dispatch('auth/getAuthUser')
-        const authUser = store.getters['auth/authUser']
-        if (authUser) {
-            store.dispatch('auth/setGuest', { value: 'isNotGuest' })
+        await storeAuth.getAuthUser()
+        const { user } = storeToRefs(storeAuth)
+        if (user) {
+            storeAuth.setGuest('isNotGuest')
             router.push({ name: 'Dashboard' })
         } else {
             const _error = Error('Unable to fetch user after login, check your API settings.')

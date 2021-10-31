@@ -1,11 +1,11 @@
 /*!
-  * vue-router v4.0.12
+  * pinia v2.0.0
   * (c) 2021 Eduardo San Martin Morote
   * @license MIT
   */
 
 /*!
- * vuex v4.0.2
- * (c) 2021 Evan You
- * @license MIT
- */
+  * vue-router v4.0.12
+  * (c) 2021 Eduardo San Martin Morote
+  * @license MIT
+  */

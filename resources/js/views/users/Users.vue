@@ -50,7 +50,7 @@
         path="users"
         :meta="meta"
         :links="links"
-        action="user/paginateUsers"
+        :action="{store: 'user', action: 'paginateUsers'}"
         v-if="meta && meta.last_page > 1"
       />
     </transition>
@@ -59,27 +59,22 @@
 
 <script setup>
 import { computed } from 'vue'
-import { useStore } from "vuex"
+import { storeToRefs } from 'pinia'
+import { useUserStore } from '@/store'
 import { onBeforeRouteLeave } from 'vue-router'
 import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
 import { BasePagination, FlashMessage } from "@/components/base";
 
-const store = useStore()
+const storeUser = useUserStore()
 
-const loading = computed(() => store.getters['user/loading'])
-const error = computed(() => store.getters['user/error'])
-const users = computed(() => store.getters['user/users'])
-const meta = computed(() => store.getters['user/meta'])
-const links = computed(() => store.getters['user/links'])
-const message = computed(() => store.getters['user/message'])
+const { loading, error, users, meta, links, message } = storeToRefs(storeUser)
 
-store.dispatch('user/getUsers', 1)
+storeUser.getUsers(1)
 
-onBeforeRouteLeave((to, from, next) => {
+onBeforeRouteLeave(async (to, from, next) => {
     const currentPage = parseInt(to.query.page) || 1;
-    store.dispatch('user/getUsers', currentPage).then(() => {
-        to.params.page = currentPage
-        next()
-    })
+    await storeUser.getUsers(currentPage)
+    to.params.page = currentPage
+    next()
 })
 </script>

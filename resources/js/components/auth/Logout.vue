@@ -10,12 +10,12 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex';
+import { useAuthStore } from '@/store';
 import { LogoutIcon } from '@heroicons/vue/solid'
 
-const store = useStore()
+const storeAuth = useAuthStore()
 
 function logout() {
-    store.dispatch('auth/logout')
+    storeAuth.logout()
 }
 </script>

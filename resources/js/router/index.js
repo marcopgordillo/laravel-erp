@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import store from '@/store'
+import { useAuthStore } from '@/store'
 import middlewarePipeline from './middlewarePipeline'
 import routes from './routes'
 
@@ -16,6 +16,7 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  const store = useAuthStore()
   const middleware = to.meta.middleware
   const context = { to, from, next, store }
 

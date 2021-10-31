@@ -2,14 +2,14 @@
     <div class="flex">
         <!-- Backdrop -->
         <div
-            :class="isOpen ? 'block' : 'hidden'"
+            :class="open ? 'block' : 'hidden'"
             @click="sidebarClose"
             class="fixed inset-0 z-20 transition-opacity bg-black opacity-50 lg:hidden"
         ></div>
         <!-- End Backdrop -->
 
         <div
-            :class="isOpen ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
+            :class="open ? 'translate-x-0 ease-out' : '-translate-x-full ease-in'"
             class="fixed inset-y-0 left-0 z-30 w-64 overflow-y-auto transition duration-300 transform bg-gray-900 lg:translate-x-0 lg:static lg:inset-0"
         >
             <div class="flex items-center justify-center mt-8">
@@ -31,7 +31,7 @@
 
                 <router-link
                     :to="{ name: 'Users' }"
-                    v-if="authUser"
+                    v-if="user"
                     v-can:users-list
                     :class="[$route.name === 'Users' ? activeClass : inactiveClass]"
                     class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
@@ -91,7 +91,8 @@
 
 <script setup>
 import { ref, computed } from 'vue'
-import { useStore } from 'vuex'
+import { storeToRefs } from 'pinia'
+import { useMainStore, useAuthStore } from '@/store'
 import {
     ChartPieIcon,
     FireIcon,
@@ -103,13 +104,16 @@ import {
     TemplateIcon,
 } from '@heroicons/vue/solid'
 
-const store = useStore()
-const authUser = computed(() => store.getters['auth/authUser'])
-const isOpen = computed(() => store.getters.sidebarOpen)
+const storeMain = useMainStore()
+const storeAuth = useAuthStore()
+
+const { open } = storeToRefs(storeMain)
+const { user } = storeToRefs(storeAuth)
+
 const activeClass = ref('bg-gray-600 bg-opacity-25 text-gray-100 border-gray-100')
 const inactiveClass = ref('hover:bg-gray-600 hover:bg-opacity-25 text-gray-500 hover:text-gray-100 border-gray-900')
 
 function sidebarClose() {
-    store.commit('SET_SIDEBAR_OPEN', false)
+    storeMain.$patch(state => state.open = false)
 }
 </script>
