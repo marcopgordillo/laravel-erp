@@ -6,6 +6,7 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
+use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -26,12 +27,12 @@ class UserController extends Controller
 
     public function index()
     {
-        return UserResource::collection(User::paginate(10));
+        return UserResource::collection(User::paginate(config('app.pagination')));
     }
 
     public function show(User $user)
     {
-        return new UserResource($user);
+        return response()->json(new UserResource($user), Response::HTTP_OK);
     }
 
     public function store(StoreUserRequest $request)
@@ -64,8 +65,6 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
-        Log::debug("User Update Controller");
-
         if (isset($request->password)) {
             $data['password'] = Hash::make($request->password);
         }
@@ -97,5 +96,7 @@ class UserController extends Controller
         }
 
         $user->delete();
+
+        return response()->json([], Response::HTTP_NO_CONTENT);
     }
 }

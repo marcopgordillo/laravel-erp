@@ -71,45 +71,44 @@ const props = defineProps({
     },
 })
 
-const storeUser = useUserStore()
-const storeMessage = useMessageStore()
 const router = useRouter()
+const stores = [
+    { name: 'storeUser', store: useUserStore },
+    { name: 'storeMessage', store: useMessageStore },
+]
 
 function Capitalize(value) {
     return `${value[0].toUpperCase()}${value.substring(1)}`
 }
 
-const store = `use${Capitalize(props.action.store)}Store`()
+const storeName = `store${Capitalize(props.action.store)}`
+const store = stores.find(store => store.name === storeName).store()
 
 function firstPage() {
-    store[props.action.action](props.links.first).then(() => {
-        if (props.path) {
-            router.push({ name: props.path, query: { page: 1 } })
-        }
-    })
+    store[props.action.action](props.links.first)
+    if (props.path) {
+        router.push({ name: props.path, query: { page: 1 } })
+    }
 }
 
 function prevPage() {
-    store[props.action.action](props.links.prev).then(() => {
-        if (props.path) {
-            router.push({ name: props.path, query: { page: props.meta.current_page - 1 } })
-        }
-    })
+    store[props.action.action](props.links.prev)
+    if (props.path) {
+        router.push({ name: props.path, query: { page: props.meta.current_page - 1 } })
+    }
 }
 
 function nextPage() {
-    store[props.action.action](props.links.next).then(() => {
-        if (props.path) {
-            router.push({ name: props.path, query: { page: props.meta.current_page + 1 } })
-        }
-    })
+    store[props.action.action](props.links.next)
+    if (props.path) {
+        router.push({ name: props.path, query: { page: props.meta.current_page + 1 } })
+    }
 }
 
 function lastPage() {
-    store[props.action.action](props.links.last).then(() => {
-        if (props.path) {
-            router.push({ name: props.path, query: { page: props.meta.last_page } })
-        }
-    })
+    store[props.action.action](props.links.last)
+    if (props.path) {
+        router.push({ name: props.path, query: { page: props.meta.last_page } })
+    }
 }
 </script>

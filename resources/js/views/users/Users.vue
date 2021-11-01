@@ -47,7 +47,8 @@
     </transition-group>
     <transition name="fade">
       <BasePagination
-        path="users"
+        key="pagination"
+        path="Users"
         :meta="meta"
         :links="links"
         :action="{store: 'user', action: 'paginateUsers'}"

@@ -1,4 +1,3 @@
-import { computed } from 'vue'
 import { auth, admin, guest } from '@/middleware'
 import Home from '@/views/Home.vue'
 import NotFound from '@/views/NotFound.vue'

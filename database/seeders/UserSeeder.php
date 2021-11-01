@@ -25,5 +25,7 @@ class UserSeeder extends Seeder
             'name' => 'Pepe',
             'email' => 'pepe@pepe.com',
         ])->assignRole('viewer');
+
+        User::factory(100)->create();
     }
 }
