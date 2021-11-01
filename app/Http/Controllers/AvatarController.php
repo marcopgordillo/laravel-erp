@@ -22,6 +22,6 @@ class AvatarController extends Controller
             return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);
         }
 
-        return new UserResource($user);
+        return response()->json(['message' => 'Avatar added Successfully'], Response::HTTP_OK);
     }
 }

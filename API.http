@@ -1,5 +1,5 @@
 @host = localhost
-@token = 1|ssEkBXBzwqYlEwdQ0DgDegsJ2oQEtDHlzSkEepuH
+@token = 1|5nSQBJc4racmjYPSKY9kn44ezB6SoN9phno60Jbs
 
 ### CSRF Cookie
 GET http://{{ host }}/sanctum/csrf-cookie
@@ -9,7 +9,7 @@ POST http://{{ host }}/api/sanctum/token
 Content-Type: application/json
 
 {
-  "email": "luke@jedi.com",
+  "email": "admin@admin.com",
   "password": "password",
   "device_name": "insomnia"
 }
@@ -19,3 +19,10 @@ GET http://{{ host }}/api/users/auth
 Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
+
+### Roles
+GET http://{{ host }}/api/roles/1
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
+

@@ -32,7 +32,7 @@ class UserController extends Controller
 
     public function show(User $user)
     {
-        return response()->json(new UserResource($user), Response::HTTP_OK);
+        return new UserResource($user);
     }
 
     public function store(StoreUserRequest $request)
@@ -43,7 +43,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
-        if (isset($request->avatar)) {
+        if ($request->has('avatar')) {
             try {
                 $filePath = Storage::disk('public')
                     ->put("avatars/user-{$user->id}", $request->avatar, 'public');
@@ -53,9 +53,13 @@ class UserController extends Controller
             }
         }
 
+        if ($request->has('roles')) {
+            $user->syncRoles($request->roles);
+        }
+
         $user->save();
 
-        return response()->json(new UserResource($user), Response::HTTP_CREATED);
+        return response()->json(['message' => 'User Created Successfully'], Response::HTTP_CREATED);
     }
 
     public function update(UpdateUserRequest $request, User $user)
@@ -65,11 +69,11 @@ class UserController extends Controller
             'email' => $request->email,
         ];
 
-        if (isset($request->password)) {
+        if ($request->has('password')) {
             $data['password'] = Hash::make($request->password);
         }
 
-        if (isset($request->avatar)) {
+        if ($request->has('avatar')) {
             try {
                 $filePath = Storage::disk('public')
                     ->put("avatars/user-{$user->id}", $request->avatar, 'public');
@@ -80,14 +84,18 @@ class UserController extends Controller
             }
         }
 
+        if ($request->has('roles')) {
+            $user->syncRoles($request->roles);
+        }
+
         $user->update($data);
 
-        return response()->json(new UserResource($user), Response::HTTP_OK);
+        return response()->json(['message' => 'User updated successfully'], Response::HTTP_OK);
     }
 
     public function destroy(User $user)
     {
-        if (isset($user->avatar)) {
+        if ($user->has('avatar')) {
             try {
                 Storage::delete($user->avatar,'public');
             } catch (\Throwable $error) {

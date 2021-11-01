@@ -6,6 +6,7 @@ use App\Http\Requests\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
 use App\Models\Message;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 
 class MessageController extends Controller
@@ -24,5 +25,6 @@ class MessageController extends Controller
 
         $messages = Message::orderByDesc('created_at')->paginate(6);
         return MessageResource::collection($messages);
+        return response()->json(['message' => 'Message added Successfully'], Response::HTTP_CREATED);
     }
 }
