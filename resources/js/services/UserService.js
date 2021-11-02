@@ -7,6 +7,12 @@ export default {
   getUsers(page) {
     return API.get(`/users/?page=${page}`)
   },
+  getRoles() {
+    return API.get('/roles/all')
+  },
+  postUser(payload) {
+    return API.post('/users', payload)
+  },
   updateUser(userId, payload) {
     return API.put(`/users/${userId}`, payload)
   },

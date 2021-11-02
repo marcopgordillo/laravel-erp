@@ -27,6 +27,13 @@ class RoleController extends Controller
         return RoleResource::collection(Role::paginate(config('app.pagination')));
     }
 
+    public function all()
+    {
+        $this->authorize('users-update');
+        $roles = ['data' => Role::select('name')->get()->pluck('name')];
+        return response()->json($roles, Response::HTTP_OK);
+    }
+
     /**
      * Store a newly created resource in storage.
      *

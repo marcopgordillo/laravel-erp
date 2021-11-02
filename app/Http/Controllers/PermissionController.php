@@ -11,6 +11,7 @@ class PermissionController extends Controller
 {
     public function __invoke()
     {
+        $this->authorize('roles-update');
         $permissions = ['data' => Permission::select('name')->get()->pluck('name')];
         return response()->json($permissions, Response::HTTP_OK);
     }

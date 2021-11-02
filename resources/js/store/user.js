@@ -13,12 +13,22 @@ const useUserStore = defineStore('user', {
     loading: false,
     error: null,
     message: null,
+    allRoles: [],
   }),
   actions: {
     getUsers(page) {
       this.loading = true
       UserService.getUsers(page)
         .then(response => this.setPaginated(response))
+        .catch(error => {
+          this.loading = false
+          this.error = getError(error)
+        })
+    },
+    getRoles() {
+      this.loading = true
+      UserService.getRoles()
+        .then(response => this.allRoles = response.data.data)
         .catch(error => {
           this.loading = false
           this.error = getError(error)
@@ -36,9 +46,25 @@ const useUserStore = defineStore('user', {
           this.putError(getError(error))
         })
     },
+    postUser(payload) {
+      this.loading = true
+      UserService.postUser(payload)
+        .then(response => {
+          this.loading = false
+          this.putMessage('User created successfully')
+          Object.assign(this.users, response.data)
+        })
+        .catch(error => {
+          this.loading = false
+          this.putError(getError(error))
+        })
+    },
     updateUser(payload) {
       UserService.updateUser(payload.id, payload)
-        .then(() => this.putMessage('User Updated'))
+        .then(() => {
+          Object.assign(this.user, payload)
+          this.putMessage('User Updated')
+        })
         .catch(error => putError(getError(error)))
     },
     deleteUser() {

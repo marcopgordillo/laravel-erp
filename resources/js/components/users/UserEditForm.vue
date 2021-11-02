@@ -1,5 +1,9 @@
 <template>
-    <form @submit.prevent="submitEdit" class="my-4">
+    <form
+        v-if="!loading && user"
+        @submit.prevent="submitEdit"
+        class="my-4"
+    >
         <BaseInput
             type="text"
             label="Name"
@@ -32,42 +36,65 @@
             placeholder="Confirm your password"
             class="mb-4"
         />
+
+            <div
+                v-for="role in allRoles"
+                :key="role"
+            >
+                <input
+                    v-model="roles"
+                    type="checkbox"
+                    :value="role"
+                    :id="role"
+                />
+                <label :for="role">{{ role }}</label>
+            </div>
         <BaseBtn type="submit" text="Update" />
     </form>
 </template>
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useUserStore } from '@/store'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { BaseInput, BaseBtn, FlashMessage } from '@/components/base'
-import { getError } from '@/utils/helpers'
 
 const storeUser = useUserStore()
 const router = useRouter()
+const route = useRoute()
 
 let name = ref(null)
 let email = ref(null)
+let roles = ref(null)
 let password = ref(null)
 let passwordConfirm = ref(null)
+let allRoles = ref(null)
 
-const { user } = storeToRefs(storeUser)
+const { user, loading } = storeToRefs(storeUser)
+
+storeUser.$subscribe((mutation, state) => {
+    name.value = state.user.name
+    email.value = state.user.email
+    roles.value = state.user.roles
+    allRoles.value = state.allRoles
+})
 
 function submitEdit() {
     const payload = {
         id: user.value.id,
         name: name.value,
         email: email.value,
+        roles: roles.value,
         password: password.value,
         password_confirmation: passwordConfirm.value
     }
 
     storeUser.updateUser(payload)
-    router.push({ name: 'Users' })
+    router.push({ name: 'UsersId', params: { id: route.params.id } })
 }
 
-onMounted(() => {
-    name.value = user.value.name
-    email.value = user.value.email
+onBeforeMount(() => {
+    storeUser.getUser(route.params.id)
+    storeUser.getRoles()
 })
 </script>

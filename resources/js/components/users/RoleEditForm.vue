@@ -47,7 +47,7 @@ let allPermissions = ref([])
 storeRole.$subscribe((mutation, state) => {
     name.value = state.role.name
     permissions.value = state.role.permissions
-    allPermissions.value = state.role.all_permissions
+    allPermissions.value = state.allPermissions
 })
 
 const { role, loading } = storeToRefs(storeRole)
@@ -65,5 +65,6 @@ function submitEdit() {
 
 onBeforeMount(() => {
     storeRole.getRole(route.params.id)
+    storeRole.getPermissions()
 })
 </script>

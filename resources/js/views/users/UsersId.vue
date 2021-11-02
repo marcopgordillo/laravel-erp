@@ -17,6 +17,13 @@
             <AvatarIcon v-else class="w-10 h-10 text-gray-400 rounded-full" />
             <span class="text-gray-600">{{ user.name }}</span>
           </div>
+          <div class="inline-flex items-center space-x-2">
+            <span
+              v-for="role in user.roles"
+              :key="role"
+              class="text-gray-600"
+            >{{ role }}</span>
+          </div>
           <a
             :href="`mailto:${user.email}`"
             :title="user.emailVerified ? 'Verified' : 'Not Verified'"
@@ -60,13 +67,12 @@
 <script setup>
 import { storeToRefs } from 'pinia'
 import { useUserStore } from "@/store"
-import { useRoute, useRouter } from 'vue-router'
+import { useRoute } from 'vue-router'
 import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
 import { FlashMessage } from "@/components/base";
 
 const storeUser = useUserStore()
 const route = useRoute()
-const router = useRouter()
 
 storeUser.getUser(route.params.id)
 

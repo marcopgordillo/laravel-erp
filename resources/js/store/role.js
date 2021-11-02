@@ -50,9 +50,8 @@ const useRoleStore = defineStore('role', {
       RoleService.postRole(payload)
         .then(response => {
           this.loading = false
-          console.log(response.data)
           this.putMessage('Role created successfully')
-          // Object.assign(this.roles, response.data)
+          Object.assign(this.roles, response.data)
         })
         .catch(error => {
           this.loading = false

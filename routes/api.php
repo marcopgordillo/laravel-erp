@@ -33,7 +33,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
 
-    Route::get('/permissions', PermissionController::class);
+    Route::get('/permissions', PermissionController::class)->name('permissions.all');
+    Route::get('/roles/all', [RoleController::class, 'all'])->name('roles.all');
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);
