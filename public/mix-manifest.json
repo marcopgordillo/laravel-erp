@@ -14,5 +14,6 @@
     "/js/login.js": "/js/login.js",
     "/js/reset-password.js": "/js/reset-password.js",
     "/js/forgot-password.js": "/js/forgot-password.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/users-create.js": "/js/users-create.js"
 }

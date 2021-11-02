@@ -36,19 +36,18 @@
             placeholder="Confirm your password"
             class="mb-4"
         />
-
-            <div
-                v-for="role in allRoles"
-                :key="role"
-            >
-                <input
-                    v-model="roles"
-                    type="checkbox"
-                    :value="role"
-                    :id="role"
-                />
-                <label :for="role">{{ role }}</label>
-            </div>
+        <div
+            v-for="role in allRoles"
+            :key="role"
+        >
+            <input
+                v-model="roles"
+                type="checkbox"
+                :value="role"
+                :id="role"
+            />
+            <label :for="role">{{ role }}</label>
+        </div>
         <BaseBtn type="submit" text="Update" />
     </form>
 </template>
@@ -81,7 +80,7 @@ storeUser.$subscribe((mutation, state) => {
 
 function submitEdit() {
     const payload = {
-        id: user.value.id,
+        id: +route.params.id,
         name: name.value,
         email: email.value,
         roles: roles.value,

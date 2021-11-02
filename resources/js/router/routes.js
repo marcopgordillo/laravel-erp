@@ -29,6 +29,12 @@ export default [
     component: () => import(/* webpackChunkName: "users" */ '@/views/users/Users.vue'),
   },
   {
+    path: '/users/create',
+    name: 'UsersCreate',
+    meta: { middleware: [auth], can: 'users-create' },
+    component: () => import(/* webpackChunkName: "users-create" */ '@/views/users/UsersCreate.vue'),
+  },
+  {
     path: '/users/:id',
     name: 'UsersId',
     meta: { middleware: [auth], can: 'users-list' },
