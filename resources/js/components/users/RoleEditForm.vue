@@ -35,7 +35,6 @@ import { storeToRefs } from 'pinia'
 import { useRoleStore } from '@/store'
 import { useRouter, useRoute } from 'vue-router'
 import { BaseInput, BaseBtn } from '@/components/base'
-import { getError } from '@/utils/helpers'
 
 const storeRole = useRoleStore()
 const router = useRouter()

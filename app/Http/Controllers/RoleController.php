@@ -14,7 +14,7 @@ class RoleController extends Controller
 {
     public function __construct()
     {
-        //
+        $this->authorizeResource(Role::class, 'role');
     }
 
     /**
@@ -37,13 +37,14 @@ class RoleController extends Controller
     {
         $role = Role::create([
             'name'  => $request->name,
+            'guard_name' => 'web',
         ]);
 
         if ($request->has('permissions')) {
             $role->syncPermissions($request->permissions);
         }
 
-        return response()->json([], Response::HTTP_CREATED);
+        return response()->json(new RoleResource($role), Response::HTTP_CREATED);
     }
 
     /**

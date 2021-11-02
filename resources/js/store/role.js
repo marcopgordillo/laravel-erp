@@ -12,6 +12,7 @@ const useRoleStore = defineStore('role', {
     loading: false,
     error: null,
     message: null,
+    allPermissions: [],
   }),
   actions: {
     getRoles(page) {
@@ -23,12 +24,35 @@ const useRoleStore = defineStore('role', {
           this.error = getError(error)
         })
     },
+    getPermissions() {
+      this.loading = true
+      RoleService.getPermissions()
+        .then(response => this.allPermissions = response.data.data)
+        .catch(error => {
+          this.loading = false
+          this.error = getError(error)
+        })
+    },
     getRole(payload) {
       this.loading = true
       RoleService.getRole(payload)
         .then(response => {
           this.role = response.data.data
           this.loading = false
+        })
+        .catch(error => {
+          this.loading = false
+          this.putError(getError(error))
+        })
+    },
+    postRole(payload) {
+      this.loading = true
+      RoleService.postRole(payload)
+        .then(response => {
+          this.loading = false
+          console.log(response.data)
+          this.putMessage('Role created successfully')
+          // Object.assign(this.roles, response.data)
         })
         .catch(error => {
           this.loading = false

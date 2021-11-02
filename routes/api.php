@@ -4,11 +4,13 @@ use App\Http\Controllers\AccountController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AvatarController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\TokenController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Spatie\Permission\Models\Permission;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +32,8 @@ Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::post('/messages', [MessageController::class, 'store'])->name('messages.store');
     Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+
+    Route::get('/permissions', PermissionController::class);
 
     Route::apiResource('users', UserController::class);
     Route::apiResource('roles', RoleController::class);

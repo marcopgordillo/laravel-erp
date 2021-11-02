@@ -7,6 +7,12 @@ export default {
   getRoles(page) {
     return API.get(`/roles/?page=${page}`)
   },
+  getPermissions() {
+    return API.get('/permissions')
+  },
+  postRole(payload) {
+    return API.post('/roles', payload)
+  },
   updateRole(roleId, payload) {
     return API.put(`/roles/${roleId}`, payload)
   },

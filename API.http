@@ -1,5 +1,5 @@
 @host = localhost
-@token = 1|5nSQBJc4racmjYPSKY9kn44ezB6SoN9phno60Jbs
+@token = 1|Nt9jesmd6FVCVJGir45Y2hta48poZ5ObHSUFfjOR
 
 ### CSRF Cookie
 GET http://{{ host }}/sanctum/csrf-cookie
@@ -26,3 +26,8 @@ Content-Type: application/json
 Accept: application/json
 Authorization: Bearer {{token}}
 
+### Permissions
+GET http://{{ host }}/api/permissions
+Content-Type: application/json
+Accept: application/json
+Authorization: Bearer {{token}}
