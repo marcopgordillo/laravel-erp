@@ -4,6 +4,10 @@ import { createAcl, defineAclRules } from 'vue-simple-acl'
 import { useAuthStore } from '@/store'
 import router from '@/router'
 
+const rawRules = [
+  'roles-list', 'roles-create', 'roles-show', 'roles-update', 'roles-delete',
+];
+
 const rules = () => defineAclRules(setRule => {
   const { user } = storeRefs()
   setRule('users-list', (user) => user?.permissions.includes('users-list'))
@@ -13,6 +17,7 @@ const rules = () => defineAclRules(setRule => {
     return user?.permissions.includes('users-update') || user?.id === _user?.id
   })
   setRule('users-delete', (user, _user) => user?.permissions.includes('users-delete') || user?.id === _user?.id)
+  rawRules.forEach(rule => setRule(rule, (user) => user?.permissions.includes(rule)));
 })
 
 export default createAcl({

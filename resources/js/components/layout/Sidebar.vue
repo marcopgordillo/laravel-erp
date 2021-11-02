@@ -41,12 +41,14 @@
                 </router-link>
 
                 <router-link
-                    to="/tables"
-                    :class="[$route.name === 'Tables' ? activeClass : inactiveClass]"
+                    :to="{ name: 'Roles' }"
+                    v-if="user"
+                    v-can:roles-list
+                    :class="[$route.name === 'Roles' ? activeClass : inactiveClass]"
                     class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
                 >
                     <CollectionIcon class="w-5 h-5" />
-                    <span class="mx-4">Tables</span>
+                    <span class="mx-4">Roles</span>
                 </router-link>
 
                 <router-link

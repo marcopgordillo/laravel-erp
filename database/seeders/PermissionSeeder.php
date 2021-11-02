@@ -17,6 +17,7 @@ class PermissionSeeder extends Seeder
     {
         $permissions = collect([
             'users-list', 'users-create', 'users-update', 'users-delete',
+            'roles-list', 'roles-create', 'roles-update', 'roles-delete',
             'accounts-list', 'accounts-create', 'accounts-update', 'accounts-delete',
         ])->map(fn($permission) => Permission::create(['name' => $permission]));
 

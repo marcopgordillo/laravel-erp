@@ -1,43 +1,32 @@
 <template>
   <div class="p-5 xl:px-0">
+    <router-link
+        :to="{ name: 'RolesCreate' }"
+        v-can:roles-create
+        class="base-link"
+    >
+        Create new Role
+    </router-link>
     <transition name="fade" mode="out-in">
       <FlashMessage
         message="loading..."
-        v-if="loading && !users.length"
+        v-if="loading && !roles.length"
         key="loading"
       />
       <ul v-else class="mt-5">
         <li
-          v-for="user in users"
-          :key="user.id"
+          v-for="role in roles"
+          :key="role.id"
           class="flex items-center justify-between py-2 border-b"
         >
           <div class="inline-flex items-center space-x-2">
-            <img
-              v-if="user?.avatar"
-              :src="user.avatar"
-              class="w-10 h-10 rounded-full"
-              alt=""
-            />
-            <AvatarIcon v-else class="w-10 h-10 text-gray-400 rounded-full" />
             <router-link
-                :to="{ name: 'UsersId', params: { id: user.id } }"
+                :to="{ name: 'RolesId', params: { id: role.id } }"
                 class="text-gray-600 base-link"
             >
-                {{ user.name }}
+                {{ role.name }}
             </router-link>
           </div>
-          <a
-            :href="`mailto:${user.email}`"
-            :title="user.emailVerified ? 'Verified' : 'Not Verified'"
-            class="inline-flex items-center space-x-2"
-          >
-            <span class="hidden sm:inline">{{ user.email }}</span>
-            <MailIcon
-              class="w-8 h-8"
-              :class="user.emailVerified ? 'text-green-400' : 'text-gray-300'"
-            />
-          </a>
         </li>
       </ul>
     </transition>
@@ -48,10 +37,10 @@
     <transition name="fade">
       <BasePagination
         key="pagination"
-        path="Users"
+        path="Roles"
         :meta="meta"
         :links="links"
-        :action="{store: 'user', action: 'paginateUsers'}"
+        :action="{store: 'role', action: 'paginateRoles'}"
         v-if="meta && meta.last_page > 1"
       />
     </transition>
@@ -60,20 +49,19 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/store'
+import { useRoleStore } from '@/store'
 import { onBeforeRouteLeave } from 'vue-router'
-import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
 import { BasePagination, FlashMessage } from "@/components/base";
 
-const storeUser = useUserStore()
+const storeRole = useRoleStore()
 
-const { loading, error, users, meta, links, message } = storeToRefs(storeUser)
+const { loading, error, roles, meta, links, message } = storeToRefs(storeRole)
 
-storeUser.getUsers(1)
+storeRole.getRoles(1)
 
 onBeforeRouteLeave(async (to, from, next) => {
     const currentPage = parseInt(to.query.page) || 1;
-    await storeUser.getUsers(currentPage)
+    await storeRole.getRoles(currentPage)
     to.params.page = currentPage
     next()
 })

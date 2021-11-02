@@ -15,7 +15,7 @@ const useMessageStore = defineStore('message', {
       this.loading = true
       MessageService.getMessages(page)
         .then(response => {
-          setPaginatedMessages(this, response)
+          this.setPaginated(response)
         })
         .catch(error => {
           this.loading = false
@@ -24,28 +24,26 @@ const useMessageStore = defineStore('message', {
     },
     postMessage(payload) {
       return MessageService.postMessage(payload).then(response => {
-        setPaginatedMessages(this, response)
+        this.setPaginated(response)
       })
     },
     paginateMessages(link) {
       this.loading = true
       MessageService.paginateMessages(link)
-        .then(response => {
-          setPaginatedMessages(this, response)
-        })
+        .then(response => this.setPaginated(response))
         .catch(error => {
           this.loading = false
           this.error = getError(error)
         })
     },
+    setPaginated(store, response) {
+      this.messages = response.data.data
+      this.meta = response.data.meta
+      this.links = response.data.links
+      this.loading = false
+    },
   },
 })
 
-function setPaginatedMessages(store, response) {
-  store.messages = response.data.data
-  store.meta = response.data.meta
-  store.links = response.data.links
-  store.loading = false
-}
 
 export default useMessageStore

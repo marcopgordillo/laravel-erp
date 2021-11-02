@@ -1,13 +1,12 @@
 import { defineStore } from 'pinia'
 import { getError } from '@/utils/helpers'
-import UserService from '@/services/UserService'
+import RoleService from '@/services/RoleService'
 import router from '@/router'
-import { useAuthStore } from '.'
 
-const useUserStore = defineStore('user', {
+const useRoleStore = defineStore('role', {
   state: () => ({
-    users: [],
-    user: null,
+    roles: [],
+    role: null,
     meta: null,
     links: null,
     loading: false,
@@ -15,20 +14,20 @@ const useUserStore = defineStore('user', {
     message: null,
   }),
   actions: {
-    getUsers(page) {
+    getRoles(page) {
       this.loading = true
-      UserService.getUsers(page)
+      RoleService.getRoles(page)
         .then(response => this.setPaginated(response))
         .catch(error => {
           this.loading = false
           this.error = getError(error)
         })
     },
-    getUser(payload) {
+    getRole(payload) {
       this.loading = true
-      UserService.getUser(payload)
+      RoleService.getRole(payload)
         .then(response => {
-          this.user = response.data.data
+          this.role = response.data.data
           this.loading = false
         })
         .catch(error => {
@@ -36,26 +35,28 @@ const useUserStore = defineStore('user', {
           this.putError(getError(error))
         })
     },
-    updateUser(payload) {
-      UserService.updateUser(payload.id, payload)
-        .then(() => this.putMessage('User Updated'))
+    updateRole(payload) {
+      RoleService.updateRole(payload.id, payload)
+        .then(() => {
+          Object.assign(this.role, payload)
+          this.putMessage('Role Updated')
+        })
         .catch(error => putError(getError(error)))
     },
-    deleteUser() {
-      const storeAuth = useAuthStore()
-      if (this.user.id !== storeAuth.user.id) {
-        UserService.deleteUser(this.user.id)
-          .then(() => router.push({ name: 'Users' }))
+    deleteRole() {
+      if (this.role.name !== 'super-admin') {
+        RoleService.deleteRole(this.role.id)
+          .then(() => router.push({ name: 'Roles' }))
         .catch(error => {
           this.error = getError(error)
         })
       } else {
-        this.error = getError(Error("Can't delete your own user!"))
+        this.error = getError(Error("Can't delete your own role!"))
       }
     },
-    paginateUsers(link) {
+    paginateRoles(link) {
       this.loading = true
-      UserService.paginateUsers(link)
+      RoleService.paginateRoles(link)
         .then(response => this.setPaginated(response))
         .catch(error => {
           this.loading = false
@@ -71,7 +72,7 @@ const useUserStore = defineStore('user', {
           setTimeout(() => this.error = null, 5000)
     },
     setPaginated(response) {
-      this.users = response.data.data
+      this.roles = response.data.data
       this.meta = response.data.meta
       this.links = response.data.links
       this.loading = false
@@ -79,5 +80,4 @@ const useUserStore = defineStore('user', {
   },
 })
 
-
-export default useUserStore
+export default useRoleStore

@@ -10,5 +10,11 @@
     "/js/login.js": "/js/login.js",
     "/js/reset-password.js": "/js/reset-password.js",
     "/js/forgot-password.js": "/js/forgot-password.js",
-    "/css/app.css": "/css/app.css"
+    "/css/app.css": "/css/app.css",
+    "/js/roles.js": "/js/roles.js",
+    "/js/roles-id.js": "/js/roles-id.js",
+    "/js/roles-edit.js": "/js/roles-edit.js",
+    "/js/user-edit.js": "/js/user-edit.js",
+    "/js/role-edit.js": "/js/role-edit.js",
+    "/js/roles-create.js": "/js/roles-create.js"
 }

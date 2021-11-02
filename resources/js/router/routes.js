@@ -38,11 +38,38 @@ export default [
         path: 'edit',
         name: 'UserEdit',
         meta: {
+          middleware: [auth],
           can: (to, from, can) => {
             return can('users-update', { id: +to.params.id })
           }
         },
-        component: () => import(/* webpackChunkName: "users-edit" */ '@/components/users/UserEditForm.vue'),
+        component: () => import(/* webpackChunkName: "user-edit" */ '@/components/users/UserEditForm.vue'),
+      },
+    ],
+  },
+  {
+    path: '/roles',
+    name: 'Roles',
+    meta: { middleware: [auth], can: 'roles-list' },
+    component: () => import(/* webpackChunkName: "roles" */ '@/views/users/Roles.vue'),
+  },
+  {
+    path: '/roles/create',
+    name: 'RolesCreate',
+    meta: { middleware: [auth], can: 'roles-create' },
+    component: () => import(/* webpackChunkName: "roles-create" */ '@/views/users/RolesCreate.vue'),
+  },
+  {
+    path: '/roles/:id',
+    name: 'RolesId',
+    meta: { middleware: [auth], can: 'roles-list' },
+    component: () => import(/* webpackChunkName: "roles-id" */ '@/views/users/RolesId.vue'),
+    children: [
+      {
+        path: 'edit',
+        name: 'RoleEdit',
+        meta: { middleware: [auth], can: 'roles-update' },
+        component: () => import(/* webpackChunkName: "role-edit" */ '@/components/users/RoleEditForm.vue'),
       },
     ],
   },
