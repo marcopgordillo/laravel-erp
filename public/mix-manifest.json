@@ -3,6 +3,7 @@
     "/js/dashboard.js": "/js/dashboard.js",
     "/js/user.js": "/js/user.js",
     "/js/users.js": "/js/users.js",
+    "/js/users-create.js": "/js/users-create.js",
     "/js/users-id.js": "/js/users-id.js",
     "/js/user-edit.js": "/js/user-edit.js",
     "/js/roles.js": "/js/roles.js",

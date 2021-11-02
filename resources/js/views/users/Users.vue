@@ -1,5 +1,12 @@
 <template>
   <div class="p-5 xl:px-0">
+    <router-link
+        :to="{ name: 'UsersCreate' }"
+        v-can:users-create
+        class="base-link"
+    >
+        Create new User
+    </router-link>
     <transition name="fade" mode="out-in">
       <FlashMessage
         message="loading..."
