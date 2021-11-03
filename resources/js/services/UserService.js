@@ -14,7 +14,7 @@ export default {
     return API.post('/users', payload)
   },
   updateUser(userId, payload) {
-    return API.put(`/users/${userId}`, payload)
+    return API.post(`/users/${userId}`, payload)
   },
   deleteUser(userId) {
     return API.delete(`/users/${userId}`)

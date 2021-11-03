@@ -62,7 +62,7 @@ class UserController extends Controller
         return response()->json(['message' => 'User Created Successfully'], Response::HTTP_CREATED);
     }
 
-    public function update(UpdateUserRequest $request, User $user)
+    public function updateUser(UpdateUserRequest $request, User $user)
     {
         $data = [
             'name' => $request->name,
@@ -90,7 +90,10 @@ class UserController extends Controller
 
         $user->update($data);
 
-        return response()->json(['message' => 'User updated successfully'], Response::HTTP_OK);
+        return response()->json([
+            'message'   => 'User updated successfully',
+            'data'      => new UserResource($user),
+        ], Response::HTTP_OK);
     }
 
     public function destroy(User $user)

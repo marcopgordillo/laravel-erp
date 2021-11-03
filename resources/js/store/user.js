@@ -60,12 +60,14 @@ const useUserStore = defineStore('user', {
         })
     },
     updateUser(payload) {
-      UserService.updateUser(payload.id, payload)
-        .then(() => {
-          Object.assign(this.user, payload)
-          this.putMessage('User Updated')
+      UserService.updateUser(payload.id, payload.data)
+        .then(response => {
+          console.log(this.user)
+          console.log(response.data.data)
+          Object.assign(this.user, response.data.data)
+          this.putMessage(response.data.message)
         })
-        .catch(error => putError(getError(error)))
+        .catch(error => this.putError(getError(error)))
     },
     deleteUser() {
       const storeAuth = useAuthStore()

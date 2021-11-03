@@ -4,9 +4,8 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\Rules\Password;
 
-class UpdateUserRequest extends FormRequest
+class StoreAvatarRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -15,7 +14,7 @@ class UpdateUserRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return !!Auth::user();
     }
 
     /**
@@ -26,10 +25,7 @@ class UpdateUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => ['required', 'min:3'],
-            'email'     => ['required', 'email'],
-            'avatar'    => ['nullable', 'image'],
-            'password'  => ['nullable', 'confirmed'],
+            'file' => 'required|image',
         ];
     }
 }
