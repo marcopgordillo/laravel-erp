@@ -6,7 +6,6 @@ use App\Http\Resources\UserResource;
 use App\Models\User;
 use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
-use App\Http\Resources\UserCollection;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -37,17 +36,17 @@ class UserController extends Controller
 
     public function store(StoreUserRequest $request)
     {
-        $user = User::create([
+        $user = User::make([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
-        if ($request->has('avatar')) {
+        if ($request->hasFile('avatar')) {
             try {
                 $filePath = Storage::disk('public')
-                    ->put("avatars/user-{$user->id}", $request->avatar, 'public');
-                $user->avatar = config('app.spaces') . "/storage/{$filePath}";
+                    ->put("avatars/user-{$user->id}", $request->avatar);
+                $user->avatar = $filePath;
             } catch (\Throwable $error) {
                 return response()->json(['message' => $error->getMessage()], Response::HTTP_BAD_REQUEST);
             }
@@ -59,7 +58,10 @@ class UserController extends Controller
 
         $user->save();
 
-        return response()->json(['message' => 'User Created Successfully'], Response::HTTP_CREATED);
+        return response()->json([
+            'message'   => 'User Created Successfully',
+            'data'      => new UserResource($user),
+        ], Response::HTTP_CREATED);
     }
 
     public function updateUser(UpdateUserRequest $request, User $user)
@@ -73,12 +75,12 @@ class UserController extends Controller
             $data['password'] = Hash::make($request->password);
         }
 
-        if ($request->has('avatar')) {
+        if ($request->hasFile('avatar')) {
             try {
                 $filePath = Storage::disk('public')
-                    ->put("avatars/user-{$user->id}", $request->avatar, 'public');
-                $data['avatar'] = config('app.spaces') . "/storage/{$filePath}";
-                Storage::delete($user->avatar, 'public');
+                    ->put("avatars/user-{$user->id}", $request->avatar);
+                $data['avatar'] = $filePath;
+                Storage::disk('public')->delete($user->avatar);
             } catch (\Throwable $error) {
                 return response()->json(['message' => $error->getMessage()], Response::HTTP_BAD_REQUEST);
             }
@@ -98,9 +100,9 @@ class UserController extends Controller
 
     public function destroy(User $user)
     {
-        if ($user->has('avatar')) {
+        if ($user->avatar) {
             try {
-                Storage::delete($user->avatar,'public');
+                Storage::disk('public')->delete($user->avatar);
             } catch (\Throwable $error) {
                 return response()->json(['message' => $error->getMessage()], Response::HTTP_BAD_REQUEST);
             }

@@ -48,11 +48,10 @@ const useUserStore = defineStore('user', {
     },
     postUser(payload) {
       this.loading = true
-      UserService.postUser(payload)
+      UserService.postUser(payload.data)
         .then(response => {
           this.loading = false
-          this.putMessage('User created successfully')
-          Object.assign(this.users, response.data)
+          this.putMessage(response.data.message)
         })
         .catch(error => {
           this.loading = false
@@ -62,8 +61,6 @@ const useUserStore = defineStore('user', {
     updateUser(payload) {
       UserService.updateUser(payload.id, payload.data)
         .then(response => {
-          console.log(this.user)
-          console.log(response.data.data)
           Object.assign(this.user, response.data.data)
           this.putMessage(response.data.message)
         })

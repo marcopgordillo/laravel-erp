@@ -18,7 +18,7 @@ class UserResource extends JsonResource
             'id'            => $this->id,
             'name'          => $this->name,
             'email'         => $this->email,
-            'avatar'        => $this->avatar,
+            'avatar'        => $this->avatar ? config('app.spaces') . "/storage/{$this->avatar}" : null,
             'roles'         => RoleResource::collection($this->roles)->pluck('name')->toArray(),
             'permissions'   => PermissionResource::collection($this->getAllPermissions())->pluck('name')->toArray(),
             'emailVerified' => $this->email_verified_at,
