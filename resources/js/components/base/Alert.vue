@@ -5,7 +5,11 @@
         :class="typeClass"
         role="alert"
     >
-        <component :is="types[type].icon" class="w-5 h-5 inline flex-shrink-0 mr-3"></component>
+        <component
+            v-if="!noIcon"
+            :is="types[type].icon"
+            class="w-5 h-5 inline flex-shrink-0 mr-3"
+        ></component>
         <div>
             <slot />
         </div>
@@ -44,6 +48,10 @@ const props = defineProps({
         default: false,
     },
     border: {
+        type: Boolean,
+        default: false,
+    },
+    'no-icon': {
         type: Boolean,
         default: false,
     },
