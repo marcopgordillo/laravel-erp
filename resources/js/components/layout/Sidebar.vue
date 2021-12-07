@@ -52,12 +52,12 @@
                 </router-link>
 
                 <router-link
-                    to="/forms"
-                    :class="[$route.name === 'Forms' ? activeClass : inactiveClass]"
+                    to="/about"
+                    :class="[$route.name === 'About' ? activeClass : inactiveClass]"
                     class="flex items-center px-6 py-2 mt-4 duration-200 border-l-4"
                 >
                     <PencilAltIcon class="w-5 h-5" />
-                    <span class="mx-4">Forms</span>
+                    <span class="mx-4">About</span>
                 </router-link>
 
                 <router-link
