@@ -21,10 +21,27 @@
             </button>
         </div>
     </alert>
+    <badge>Default</badge>
+    <badge color="dark">Dark</badge>
+    <badge color="red">Red</badge>
+    <badge color="green">Green</badge>
+    <badge color="yellow">Yellow</badge>
+    <badge color="indigo">
+        <ClockIcon class="w-3 h-3 mr-1" />
+        Indigo
+    </badge>
+    <badge color="purple" link="https://google.com">Purple</badge>
+    <badge color="pink" size="sm">Pink</badge>
+    <badge color="dark" size="sm" class="!rounded-full !p-1.5">
+        <CheckIcon class="w-3.5 h-3.5" />
+    </badge>
+    <badge color="red" class="!rounded-full !p-1">
+        <CheckIcon class="w-3 h-3" />
+    </badge>
 </template>
 
 <script setup>
-import { InformationCircleIcon, EyeIcon } from '@heroicons/vue/solid'
-import Alert from '@/components/base/Alert'
+import { InformationCircleIcon, EyeIcon, ClockIcon, CheckIcon } from '@heroicons/vue/solid'
+import { Alert, Badge } from '@/components/base'
 
 </script>

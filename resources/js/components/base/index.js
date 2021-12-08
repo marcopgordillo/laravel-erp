@@ -1,4 +1,6 @@
 export { default as BaseBtn } from './BaseBtn.vue'
+export { default as Alert } from './Alert.vue'
+export { default as Badge } from './Badge.vue'
 export { default as BaseInput } from './BaseInput.vue'
 export { default as BasePagination } from './BasePagination.vue'
 export { default as FlashMessage } from './FlashMessage.vue'
