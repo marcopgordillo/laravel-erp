@@ -2,24 +2,18 @@ const colors = require('tailwindcss/colors')
 const defaultTheme = require('tailwindcss/defaultTheme')
 
 module.exports = {
-  mode: 'jit',
-  purge: {
-    content: [
-      './storage/framework/views/*.php',
-      './resources/**/*.blade.php',
-      './resources/**/*.js',
-      './resources/**/*.vue',
-    ],
-    safelist: [
-      'fade-enter-active',
-      'fade-leave-active',
-      'fade-enter-from',
-      'fade-enter-to',
-      'fade-leave-from',
-      'fade-leave-to',
-    ],
-  },
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    './storage/framework/views/*.php',
+    './resources/**/*.blade.php',
+    './resources/**/*.js',
+    './resources/**/*.vue',
+  ],
+  safelist: [
+    {
+      pattern: /fade-(enter|leave)-(active|from|to)/,
+    },
+  ],
+  // darkMode: 'media', // or 'media' or 'class'
   theme: {
     extend: {
       fontFamily: {
@@ -29,9 +23,6 @@ module.exports = {
         orange: colors.orange,
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [],
 }
