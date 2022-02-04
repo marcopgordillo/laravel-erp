@@ -5,10 +5,10 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import acl from './acl'
-import DashboardLayout from '@/components/layout/DashboardLayout.vue'
-import EmptyLayout from '@/components/layout/EmptyLayout.vue'
+import DashboardLayout from '@/js/components/layout/DashboardLayout.vue'
+import EmptyLayout from '@/js/components/layout/EmptyLayout.vue'
 
-import '~/app.css'
+import '@/css/app.css'
 
 const app = createApp(App)
     .use(createPinia())

@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useAuthStore } from '@/store'
 
 export const authClient = axios.create({
-  baseURL: process.env.MIX_API_URL,
+  baseURL: import.meta.env.MIX_API_URL,
   withCredentials: true, // handle CSRF token
 })
 

@@ -12,7 +12,7 @@ export const getError = error => {
     return error.message ?? errorMessage
   }
 
-  if (process.env.NODE_ENV === 'development') {
+  if (import.meta.env.NODE_ENV === 'development') {
     console.error(error.message)
     console.error(error.response.data)
     console.error(error.response.status)
