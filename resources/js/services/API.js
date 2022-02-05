@@ -1,8 +1,8 @@
 import axios from 'axios'
-import { useAuthStore } from '@/store'
+import { useAuthStore } from '@/js/store'
 
 const apiClient = axios.create({
-  baseURL: `${process.env.MIX_API_URL}/api`,
+  baseURL: `${import.meta.env.MIX_API_URL}/api`,
   withCredentials: true,
 })
 

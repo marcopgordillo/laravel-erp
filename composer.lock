@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a2ae92a41e6c07b1386689a2fac6c6f0",
+    "content-hash": "b68e51826b7093e5d8bd1e4708a16ec7",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1059,6 +1059,82 @@
                 }
             ],
             "time": "2021-10-06T17:43:30+00:00"
+        },
+        {
+            "name": "innocenzi/laravel-vite",
+            "version": "v0.2.0-beta.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/innocenzi/laravel-vite.git",
+                "reference": "8ca21749371f32f591ab257d2d8b0c23663c3903"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/innocenzi/laravel-vite/zipball/8ca21749371f32f591ab257d2d8b0c23663c3903",
+                "reference": "8ca21749371f32f591ab257d2d8b0c23663c3903",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0|^7.2",
+                "illuminate/contracts": "^8.0|^9.0",
+                "php": "^8.0",
+                "spatie/laravel-package-tools": "^1.1"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.5",
+                "orchestra/testbench": "^6.0|^7.0",
+                "pestphp/pest": "^1.21",
+                "phpunit/phpunit": "^9.3",
+                "symfony/process": "^5.3|^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Innocenzi\\Vite\\ViteServiceProvider"
+                    ],
+                    "aliases": {
+                        "Vite": "Innocenzi\\Vite\\ViteFacade"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Innocenzi\\Vite\\": "src",
+                    "Innocenzi\\Vite\\Database\\Factories\\": "database/factories"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Enzo Innocenzi",
+                    "email": "enzo@innocenzi.dev",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Vite integration for Laravel",
+            "homepage": "https://github.com/innocenzi/laravel-vite",
+            "keywords": [
+                "innocenzi",
+                "laravel-vite"
+            ],
+            "support": {
+                "issues": "https://github.com/innocenzi/laravel-vite/issues",
+                "source": "https://github.com/innocenzi/laravel-vite/tree/v0.2.0-beta.3"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/innocenzi",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-02-03T01:18:48+00:00"
         },
         {
             "name": "laravel/fortify",
@@ -3130,6 +3206,65 @@
                 }
             ],
             "time": "2021-09-25T23:10:38+00:00"
+        },
+        {
+            "name": "spatie/laravel-package-tools",
+            "version": "1.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-package-tools.git",
+                "reference": "fd75af77d0bbf221f33369186df16da704bebebd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-package-tools/zipball/fd75af77d0bbf221f33369186df16da704bebebd",
+                "reference": "fd75af77d0bbf221f33369186df16da704bebebd",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/contracts": "^7.0|^8.0|^9.0",
+                "php": "^7.4|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.4",
+                "orchestra/testbench": "^5.0|^6.23|^7.0",
+                "phpunit/phpunit": "^9.4",
+                "spatie/test-time": "^1.2"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\LaravelPackageTools\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Tools for creating Laravel packages",
+            "homepage": "https://github.com/spatie/laravel-package-tools",
+            "keywords": [
+                "laravel-package-tools",
+                "spatie"
+            ],
+            "support": {
+                "issues": "https://github.com/spatie/laravel-package-tools/issues",
+                "source": "https://github.com/spatie/laravel-package-tools/tree/1.11.0"
+            },
+            "funding": [
+                {
+                    "url": "https://github.com/spatie",
+                    "type": "github"
+                }
+            ],
+            "time": "2022-01-11T16:14:23+00:00"
         },
         {
             "name": "spatie/laravel-permission",
@@ -8448,5 +8583,5 @@
         "php": "^7.3|^8.0"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.1.0"
+    "plugin-api-version": "2.2.0"
 }

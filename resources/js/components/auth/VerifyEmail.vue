@@ -10,11 +10,11 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@/store'
+import { useAuthStore } from '@/js/store'
 
-import { getError } from '@/utils/helpers'
-import AuthService from '@/services/AuthService'
-import { BaseBtn, FlashMessage } from '@/components/base'
+import { getError } from '@/js/utils/helpers'
+import AuthService from '@/js/services/AuthService'
+import { BaseBtn, FlashMessage } from '@/js/components/base'
 
 const storeAuth = useAuthStore()
 

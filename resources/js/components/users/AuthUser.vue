@@ -22,7 +22,7 @@
 <script setup>
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useAuthStore } from '@/store'
+import { useAuthStore } from '@/js/store'
 import VerifyEmail from '../auth/VerifyEmail.vue';
 
 const storeAuth = useAuthStore()

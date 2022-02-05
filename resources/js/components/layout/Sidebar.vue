@@ -94,7 +94,7 @@
 <script setup>
 import { ref, computed } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useMainStore, useAuthStore } from '@/store'
+import { useMainStore, useAuthStore } from '@/js/store'
 import {
     ChartPieIcon,
     FireIcon,

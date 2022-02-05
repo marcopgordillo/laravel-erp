@@ -49,9 +49,9 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useRoleStore } from '@/store'
+import { useRoleStore } from '@/js/store'
 import { onBeforeRouteLeave } from 'vue-router'
-import { BasePagination, FlashMessage } from "@/components/base";
+import { BasePagination, FlashMessage } from "@/js/components/base";
 
 const storeRole = useRoleStore()
 

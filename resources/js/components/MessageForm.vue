@@ -16,9 +16,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useMessageStore } from '@/store'
+import { useMessageStore } from '@/js/store'
 
-import { getError } from '@/utils/helpers'
+import { getError } from '@/js/utils/helpers'
 import { BaseBtn, BaseInput, FlashMessage } from './base'
 
 const storeMessage = useMessageStore()

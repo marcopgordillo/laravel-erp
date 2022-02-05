@@ -31,9 +31,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { getError } from "@/utils/helpers"
-import AuthService from "@/services/AuthService";
-import { BaseBtn, BaseInput, FlashMessage } from "@/components/base"
+import { getError } from "@/js/utils/helpers"
+import AuthService from "@/js/services/AuthService";
+import { BaseBtn, BaseInput, FlashMessage } from "@/js/components/base"
 
 const currentPassword = ref(null)
 const password = ref(null)

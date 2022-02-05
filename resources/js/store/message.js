@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
-import { getError } from '@/utils/helpers'
-import MessageService from '@/services/MessageService'
+import { getError } from '@/js/utils/helpers'
+import MessageService from '@/js/services/MessageService'
 
 const useMessageStore = defineStore('message', {
   state: () => ({

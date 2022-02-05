@@ -60,10 +60,10 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/js/store'
 import { useRouter, useRoute } from 'vue-router'
-import { BaseInput, BaseBtn, FlashMessage } from '@/components/base'
-import UserService from '@/services/UserService'
+import { BaseInput, BaseBtn, FlashMessage } from '@/js/components/base'
+import UserService from '@/js/services/UserService'
 
 const storeUser = useUserStore()
 const router = useRouter()

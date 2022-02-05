@@ -70,7 +70,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useMainStore, useAuthStore } from '@/store'
+import { useMainStore, useAuthStore } from '@/js/store'
 import { HomeIcon, LoginIcon, UserCircleIcon as AvatarIcon, } from '@heroicons/vue/solid'
 import { MenuAlt2Icon, SearchIcon, BellIcon } from '@heroicons/vue/outline'
 import Logout from '../auth/Logout.vue';
