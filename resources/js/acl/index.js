@@ -1,8 +1,8 @@
 import { computed } from 'vue'
 import { storeToRefs } from 'pinia'
 import { createAcl, defineAclRules } from 'vue-simple-acl'
-import { useAuthStore } from '@/store'
-import router from '@/router'
+import { useAuthStore } from '@/js/store'
+import router from '@/js/router'
 
 const rawRules = [
   'roles-list', 'roles-create', 'roles-show', 'roles-update', 'roles-delete',

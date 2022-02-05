@@ -39,9 +39,9 @@
 import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 
-import { getError } from "@/utils/helpers";
-import AuthService from "@/services/AuthService";
-import { BaseInput, BaseBtn, FlashMessage } from '@/components/base'
+import { getError } from "@/js/utils/helpers";
+import AuthService from "@/js/services/AuthService";
+import { BaseInput, BaseBtn, FlashMessage } from '@/js/components/base'
 
 const route = useRoute()
 

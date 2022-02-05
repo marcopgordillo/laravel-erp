@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/store';
+import { useAuthStore } from '@/js/store';
 import { LogoutIcon } from '@heroicons/vue/solid'
 
 const storeAuth = useAuthStore()

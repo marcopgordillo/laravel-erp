@@ -16,10 +16,10 @@
 </template>
 
 <script setup>
-import { useAuthStore } from '@/store'
+import { useAuthStore } from '@/js/store'
 
-import { AuthUser, AuthUserForm, UpdatePassword } from '@/components/users'
-import { FileUpload } from '@/components/base'
+import { AuthUser, AuthUserForm, UpdatePassword } from '@/js/components/users'
+import { FileUpload } from '@/js/components/base'
 
 const storeAuth = useAuthStore()
 

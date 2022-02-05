@@ -42,6 +42,6 @@
 
 <script setup>
 import { InformationCircleIcon, EyeIcon, ClockIcon, CheckIcon } from '@heroicons/vue/solid'
-import { Alert, Badge } from '@/components/base'
+import { Alert, Badge } from '@/js/components/base'
 
 </script>

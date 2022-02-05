@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { getError } from '@/utils/helpers'
-import RoleService from '@/services/RoleService'
-import router from '@/router'
+import { getError } from '@/js/utils/helpers'
+import RoleService from '@/js/services/RoleService'
+import router from '@/js/router'
 
 const useRoleStore = defineStore('role', {
   state: () => ({

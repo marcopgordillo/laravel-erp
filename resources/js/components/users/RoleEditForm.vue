@@ -32,9 +32,9 @@
 <script setup>
 import { ref, onBeforeMount } from 'vue'
 import { storeToRefs } from 'pinia'
-import { useRoleStore } from '@/store'
+import { useRoleStore } from '@/js/store'
 import { useRouter, useRoute } from 'vue-router'
-import { BaseInput, BaseBtn } from '@/components/base'
+import { BaseInput, BaseBtn } from '@/js/components/base'
 
 const storeRole = useRoleStore()
 const router = useRouter()

@@ -14,9 +14,9 @@
 <script setup>
 import { ref } from 'vue'
 
-import { getError } from "@/utils/helpers"
-import FileService from "@/services/FileService"
-import { BaseBtn, FlashMessage } from "@/components/base"
+import { getError } from "@/js/utils/helpers"
+import FileService from "@/js/services/FileService"
+import { BaseBtn, FlashMessage } from "@/js/components/base"
 
 const props = defineProps({
     fileTypes: {

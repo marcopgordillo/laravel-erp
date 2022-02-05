@@ -50,7 +50,7 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useMessageStore } from '@/store'
+import { useMessageStore } from '@/js/store'
 
 import { BasePagination, FlashMessage } from './base'
 import { AvatarIcon } from './icons'

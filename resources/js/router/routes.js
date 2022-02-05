@@ -1,7 +1,7 @@
-import { auth, admin, guest } from '@/middleware'
-import Home from '@/views/Home.vue'
-import NotFound from '@/views/NotFound.vue'
-import Unauthorized from '@/views/Unauthorized.vue'
+import { auth, admin, guest } from '@/js/middleware'
+import Home from '@/js/views/Home.vue'
+import NotFound from '@/js/views/NotFound.vue'
+import Unauthorized from '@/js/views/Unauthorized.vue'
 
 export default [
   {
@@ -14,31 +14,31 @@ export default [
     path: '/dashboard',
     name: 'Dashboard',
     meta: { middleware: [auth] },
-    component: () => import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard.vue'),
+    component: () => import('@/js/views/Dashboard.vue'),
   },
   {
     path: '/user',
     name: 'User',
     meta: { middleware: [auth] },
-    component: () => import(/* webpackChunkName: "user" */ '@/views/users/User.vue'),
+    component: () => import('@/js/views/users/User.vue'),
   },
   {
     path: '/users',
     name: 'Users',
     meta: { middleware: [auth], can: 'users-list' },
-    component: () => import(/* webpackChunkName: "users" */ '@/views/users/Users.vue'),
+    component: () => import('@/js/views/users/Users.vue'),
   },
   {
     path: '/users/create',
     name: 'UsersCreate',
     meta: { middleware: [auth], can: 'users-create' },
-    component: () => import(/* webpackChunkName: "users-create" */ '@/views/users/UsersCreate.vue'),
+    component: () => import('@/js/views/users/UsersCreate.vue'),
   },
   {
     path: '/users/:id',
     name: 'UsersId',
     meta: { middleware: [auth], can: 'users-list' },
-    component: () => import(/* webpackChunkName: "users-id" */ '@/views/users/UsersId.vue'),
+    component: () => import('@/js/views/users/UsersId.vue'),
     children: [
       {
         path: 'edit',
@@ -49,7 +49,7 @@ export default [
             return can('users-update', { id: +to.params.id })
           }
         },
-        component: () => import(/* webpackChunkName: "user-edit" */ '@/components/users/UserEditForm.vue'),
+        component: () => import('@/js/components/users/UserEditForm.vue'),
       },
     ],
   },
@@ -57,25 +57,25 @@ export default [
     path: '/roles',
     name: 'Roles',
     meta: { middleware: [auth], can: 'roles-list' },
-    component: () => import(/* webpackChunkName: "roles" */ '@/views/users/Roles.vue'),
+    component: () => import('@/js/views/users/Roles.vue'),
   },
   {
     path: '/roles/create',
     name: 'RolesCreate',
     meta: { middleware: [auth], can: 'roles-create' },
-    component: () => import(/* webpackChunkName: "roles-create" */ '@/views/users/RolesCreate.vue'),
+    component: () => import('@/js/views/users/RolesCreate.vue'),
   },
   {
     path: '/roles/:id',
     name: 'RolesId',
     meta: { middleware: [auth], can: 'roles-list' },
-    component: () => import(/* webpackChunkName: "roles-id" */ '@/views/users/RolesId.vue'),
+    component: () => import('@/js/views/users/RolesId.vue'),
     children: [
       {
         path: 'edit',
         name: 'RoleEdit',
         meta: { middleware: [auth], can: 'roles-update' },
-        component: () => import(/* webpackChunkName: "role-edit" */ '@/components/users/RoleEditForm.vue'),
+        component: () => import('@/js/components/users/RoleEditForm.vue'),
       },
     ],
   },
@@ -83,31 +83,31 @@ export default [
     path: '/about',
     name: 'About',
     meta: { middleware: [guest] },
-    component: () => import(/* webpackChunkName: "about" */ '@/views/About.vue'),
+    component: () => import('@/js/views/About.vue'),
   },
   {
     path: '/register',
     name: 'Register',
     meta: { middleware: [guest] },
-    component: () => import(/* webpackChunkName: "register" */ '@/views/Register.vue'),
+    component: () => import('@/js/views/Register.vue'),
   },
   {
     path: '/login',
     name: 'Login',
     meta: { middleware: [guest], layout: 'empty' },
-    component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
+    component: () => import('@/js/views/Login.vue'),
   },
   {
     path: '/reset-password',
     name: 'ResetPassword',
     meta: { middleware: [guest], layout: 'empty' },
-    component: () => import(/* webpackChunkName: "reset-password" */ '@/views/ResetPassword.vue'),
+    component: () => import('@/js/views/ResetPassword.vue'),
   },
   {
     path: '/forgot-password',
     name: 'ForgotPassword',
     meta: { middleware: [guest] },
-    component: () => import(/* webpackChunkName: "forgot-password" */ '@/views/ForgotPassword.vue'),
+    component: () => import('@/js/views/ForgotPassword.vue'),
   },
   {
     path: "/unauthorized",

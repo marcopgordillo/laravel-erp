@@ -49,7 +49,7 @@
   </div>
 </template>
 <script setup>
-import { useUserStore, useMessageStore } from '@/store'
+import { useUserStore, useMessageStore } from '@/js/store'
 import { useRouter } from 'vue-router'
 
 const props = defineProps({

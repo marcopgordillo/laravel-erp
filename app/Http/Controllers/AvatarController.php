@@ -20,7 +20,7 @@ class AvatarController extends Controller
             if (isset($user->avatar)) {
                 Storage::delete($user->avatar, 'public');
             }
-            $user->avatar = config('app.spaces') . "/storage/{$filePath}";
+            $user->avatar = $filePath;
             $user->save();
         } catch (\Throwable $th) {
             return response()->json(['message' => $th->getMessage()], Response::HTTP_BAD_REQUEST);

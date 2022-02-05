@@ -34,11 +34,11 @@
 import { ref } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useRouter } from 'vue-router'
-import { useAuthStore } from '@/store'
+import { useAuthStore } from '@/js/store'
 
-import { getError } from '@/utils/helpers'
-import AuthService from '@/services/AuthService'
-import { BaseBtn, BaseInput, FlashMessage } from '@/components/base'
+import { getError } from '@/js/utils/helpers'
+import AuthService from '@/js/services/AuthService'
+import { BaseBtn, BaseInput, FlashMessage } from '@/js/components/base'
 
 const router = useRouter()
 const storeAuth = useAuthStore()

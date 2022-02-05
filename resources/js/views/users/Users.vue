@@ -67,10 +67,10 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useUserStore } from '@/store'
+import { useUserStore } from '@/js/store'
 import { onBeforeRouteLeave } from 'vue-router'
 import { MailIcon, UserCircleIcon as AvatarIcon } from '@heroicons/vue/solid'
-import { BasePagination, FlashMessage } from "@/components/base";
+import { BasePagination, FlashMessage } from "@/js/components/base";
 
 const storeUser = useUserStore()
 

@@ -5,7 +5,7 @@
         Laravel Vue Demo SPA.
       </h1>
       <div>
-          <img src="@/../assets/logo.png" alt="">
+          <img src="@/assets/logo.png" alt="">
       </div>
       <p class="font-bold">
         You can register for an account

@@ -11,7 +11,7 @@
         <div class="mt-5 flex items-center justify-between py-2 border-b">
             <div class="inline-flex items-center space-x-2">
                 <span class="text-gray-600 font-bold">Name:</span>
-                <span class="text-gray-600">{{ role.name }}</span>
+                <span class="text-gray-600" v-if="role">{{ role.name }}</span>
             </div>
             <div class="inline-flex items-center space-x-2">
                 <router-link
@@ -30,7 +30,7 @@
                 </button>
             </div>
         </div>
-        <div class="mt-2 inline-flex items-center space-x-2">
+        <div class="mt-2 inline-flex items-center space-x-2" v-if="role">
             <span class="text-gray-600 font-bold">Permissions:</span>
             <span
                 v-for="permission in role.permissions"
@@ -55,9 +55,9 @@
 
 <script setup>
 import { storeToRefs } from 'pinia'
-import { useRoleStore } from "@/store"
+import { useRoleStore } from "@/js/store"
 import { useRoute } from 'vue-router'
-import { FlashMessage } from "@/components/base";
+import { FlashMessage } from "@/js/components/base";
 
 const storeRole = useRoleStore()
 const route = useRoute()
